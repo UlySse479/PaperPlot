@@ -252,9 +252,7 @@ This renders a small representative gallery used both for examples and for visua
 ![SOTA comparison](./docs/gallery/line_sota_compare.png)
 ![Training curve](./docs/gallery/line_training_curve.png)
 ![Ablation study](./docs/gallery/bar_ablation.png)
-![Error distribution](./docs/gallery/hist_error_distribution.png)
 ![Distribution comparison](./docs/gallery/box_distribution_compare.png)
-![Inference cost](./docs/gallery/bar_resource_tradeoff.png)
 
 The current built-in gallery cases are:
 
@@ -262,10 +260,8 @@ The current built-in gallery cases are:
 * `line_training_curve`
 * `bar_ablation`
 * `scatter_clusters`
-* `hist_error_distribution`
 * `box_distribution_compare`
 * `heatmap_metrics`
-* `bar_resource_tradeoff`
 * `report_layout`
 
 ## Styling existing Matplotlib code
