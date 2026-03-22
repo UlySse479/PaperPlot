@@ -1,0 +1,26 @@
+paper:
+  profile: emnlp
+  style: nature-clean
+
+figure:
+  template: table_mix.default
+  data:
+    placeholder: [1]
+  output: figures/report_layout.png
+  elements:
+    - template: table.default
+      title: Summary Table
+      row: 0
+      col: 0
+      data:
+        - {Model: A, F1: 81.2, Params: 110}
+        - {Model: B, F1: 82.7, Params: 95}
+    - template: bar.default
+      title: F1 Score
+      row: 0
+      col: 1
+      data:
+        model: [A, B]
+        score: [81.2, 82.7]
+      x: model
+      y: score

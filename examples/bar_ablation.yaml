@@ -1,0 +1,11 @@
+paper:
+  profile: neurips
+  style: academic-bright
+
+figure:
+  template: bar.ablation
+  data: results/ablation.csv
+  x: component
+  y: score
+  output: figures/ablation.pdf
+  title: Ablation Study

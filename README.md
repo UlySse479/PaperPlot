@@ -1,301 +1,337 @@
-# 📊 PaperPlot
+# PaperPlot
 
-> A Matplotlib-based framework for **consistent, publication-quality scientific figures**.
+PaperPlot is a Matplotlib-based framework for publication-quality scientific figures with consistent styles, venue-aware defaults, and reusable plot templates.
 
-PaperPlot helps you move from *manual plotting and ad-hoc styling* to a **standardized, template-driven workflow** for academic papers.
+## Current scope
 
----
+The repository currently includes:
 
-## ✨ Why PaperPlot?
+* profile, style, template, and plotter registries
+* built-in venue profiles and visual styles
+* template-driven rendering for line, scatter, bar, grouped bar, histogram, box, heatmap, radar, table, and composite layouts
+* JSON/YAML config loading and project-local asset autoloading
+* `use_style(...)` for existing Matplotlib workflows
+* `plot(...)`, `render_template(...)`, and `plot_from_config(...)` for Python-side rendering
+* `managed_figure(...)` for automatic figure cleanup around returned results
+* a CLI for rendering, validation, asset loading, gallery generation, and registry listing
+* a built-in gallery plus visual regression baselines
+* smoke, config, CLI, and visual regression tests
 
-If you’ve ever struggled with:
-
-* Inconsistent fonts and styles across figures
-* Rewriting plotting scripts for every paper
-* Adjusting figure sizes for different venues (ICML, ACL, CVPR…)
-* Ugly default Matplotlib plots
-* Hard-to-reuse complex figures (ablation, comparisons, etc.)
-
-PaperPlot is designed for you.
-
----
-
-## 🚀 Key Features
-
-### 🎯 Paper-level Consistency
-
-* Unified fonts, sizes, colors, and layout across all figures
-* One configuration → consistent entire paper
-
-### 🏛️ Venue-aware Profiles
-
-Built-in support for:
-
-* ICML / NeurIPS
-* ACL / EMNLP / NAACL
-* CVPR
-* Nature-style figures
-
----
-
-### 🎨 Hierarchical Style System
-
-```text
-Profile (venue)
-   ↓
-Visual Style
-   ↓
-Override
-   ↓
-Template
-```
-
-* Clean defaults
-* Flexible overrides
-* No more style chaos
-
----
-
-### 🧩 Template-driven Plotting
-
-Stop rewriting plotting code.
+## Quick example
 
 ```python
 from paperplot import plot
 
-plot(
-    template="line.sota_compare",
-    data=df,
-    x="epoch",
-    y="accuracy",
-    hue="method",
-    output="figures/acc.pdf"
-)
-```
-
----
-
-### 🔁 Reusable Templates
-
-* Register your own plotting templates
-* Reuse across projects and papers
-
-```python
-register_template(
-    name="line.my_lab_style",
-    base="line.sota_compare"
-)
-```
-
----
-
-### 🔧 Minimal Migration Cost
-
-Already using Matplotlib? No problem.
-
-```python
-from paperplot import use_style
-
-use_style(profile="icml", visual="academic-muted")
-
-plt.plot(x, y)
-plt.savefig("fig.pdf")
-```
-
----
-
-### 📦 Multiple Input Formats
-
-Supports:
-
-* CSV
-* pandas DataFrame
-* numpy arrays
-* Python dict/list
-
----
-
-### 📐 Size Tokens (Paper-friendly)
-
-Instead of manually tuning figsize:
-
-```python
-size="single"   # single column
-size="double"   # double column
-size="square"
-```
-
----
-
-### 📤 Publication-ready Export
-
-Automatically handles:
-
-* PDF / PNG / SVG
-* DPI
-* tight layout
-* font embedding
-
----
-
-## 📚 Quick Start
-
-### Installation (coming soon)
-
-```bash
-pip install paperplot
-```
-
----
-
-### Example: Line Plot
-
-```python
-from paperplot import plot
-import pandas as pd
-
-df = pd.read_csv("results.csv")
+data = {
+    "epoch": [1, 2, 3, 1, 2, 3],
+    "acc": [70, 73, 75, 68, 71, 74],
+    "method": ["A", "A", "A", "B", "B", "B"],
+}
 
 plot(
     template="line.sota_compare",
-    data=df,
+    data=data,
     x="epoch",
-    y="accuracy",
+    y="acc",
     hue="method",
-    output="figures/acc.pdf"
+    output="figures/acc.pdf",
 )
 ```
 
----
-
-### Example: Use with Existing Matplotlib Code
+If you keep returned figures around in long-running scripts or notebooks, close them explicitly after saving or inspection:
 
 ```python
-from paperplot import use_style
 import matplotlib.pyplot as plt
+from paperplot import plot
 
-use_style(profile="icml", visual="academic-muted")
+fig, ax, spec = plot(
+    template="line.sota_compare",
+    data=data,
+    x="epoch",
+    y="acc",
+    hue="method",
+)
 
-plt.plot(x, y)
-plt.xlabel("Epoch")
-plt.ylabel("Accuracy (%)")
-plt.savefig("fig.pdf")
+plt.close(fig)
 ```
 
----
+If you want automatic cleanup around the existing return value, use `managed_figure(...)`:
 
-## ⚙️ Configuration (YAML)
+```python
+from paperplot import managed_figure, plot
 
-PaperPlot supports config-driven workflows:
+with managed_figure(
+    plot(
+        template="line.sota_compare",
+        data=data,
+        x="epoch",
+        y="acc",
+        hue="method",
+    )
+) as (fig, ax, spec):
+    print(ax.get_xlabel())
+```
+
+## Config-driven plotting
+
+```python
+from paperplot import plot_from_config
+
+config = {
+    "paper": {
+        "profile": "neurips",
+        "style": "academic-bright",
+    },
+    "figure": {
+        "template": "bar.ablation",
+        "data": {
+            "component": ["base", "w/o aug", "w/o schedule"],
+            "score": [82.1, 79.8, 80.4],
+        },
+        "x": "component",
+        "y": "score",
+        "output": "figures/ablation.pdf",
+    },
+}
+
+plot_from_config(config)
+```
+
+`plot_from_config("examples/bar_ablation.yaml")` is supported directly. When `PyYAML` is installed it is used; otherwise PaperPlot falls back to a built-in parser that supports the project’s config/asset subset.
+
+The same figure-lifecycle rule applies to `plot_from_config(...)`: if you keep the returned figure object, close it when you are done.
+
+Supported config inputs:
+
+* Python mappings
+* `.json`
+* `.yaml` / `.yml`
+
+## External assets
+
+PaperPlot can autoload project-local profile, style, and template assets from files.
+
+```python
+from paperplot import autoload_project_assets
+
+autoload_project_assets(".")
+```
+
+Supported locations:
+
+* `./paperplot_assets/profiles`, `./paperplot_assets/styles`, `./paperplot_assets/templates`
+* `./.paperplot/profiles`, `./.paperplot/styles`, `./.paperplot/templates`
+* `./profiles`, `./styles`, `./templates`
+
+Supported file formats:
+
+* `.json`
+* `.yaml` / `.yml`
+
+Example:
+
+```python
+from paperplot import autoload_project_assets, plot
+
+autoload_project_assets("examples/assets")
+
+plot(
+    template="bar.lab",
+    profile="lab",
+    visual="lab-muted",
+    data={"model": ["A", "B", "C"], "score": [81.2, 83.4, 82.7]},
+    x="model",
+    y="score",
+)
+```
+
+Additional example configs:
+
+* [scatter_clusters.yaml](/root/PaperPlot/examples/scatter_clusters.yaml)
+* [heatmap_metrics.yaml](/root/PaperPlot/examples/heatmap_metrics.yaml)
+* [report_layout.yaml](/root/PaperPlot/examples/report_layout.yaml)
+* [grouped_ablation_significance.yaml](/root/PaperPlot/examples/grouped_ablation_significance.yaml)
+* [icml_scaling_law.yaml](/root/PaperPlot/examples/icml_scaling_law.yaml)
+* [cvpr_pareto_frontier.yaml](/root/PaperPlot/examples/cvpr_pareto_frontier.yaml)
+* [acl_benchmark_matrix.yaml](/root/PaperPlot/examples/acl_benchmark_matrix.yaml)
+* [iclr_benchmark_compare.yaml](/root/PaperPlot/examples/iclr_benchmark_compare.yaml)
+* [cvpr_paper_summary.yaml](/root/PaperPlot/examples/cvpr_paper_summary.yaml)
+
+### Award-inspired templates
+
+Recent award-winning ICML, ICLR, ACL, and CVPR papers repeatedly use a small set of figure families:
+
+* scaling-law and compute-quality trend lines
+* Pareto-style scatter plots with direct method labels
+* benchmark heatmap matrices across tasks, datasets, or languages
+* grouped benchmark comparisons
+* mixed table-plus-chart summary panels
+
+PaperPlot now includes built-in templates for those patterns:
+
+* `line.scaling_law`
+* `scatter.pareto_frontier`
+* `heatmap.benchmark_matrix`
+* `grouped_bar.benchmark_compare`
+* `table_mix.paper_summary`
+
+### Significance annotations
+
+PaperPlot supports both low-level bracket annotations and higher-level significance specs.
+
+Direct pair comparison:
 
 ```yaml
-paper:
-  profile: icml
-  style: academic-muted
-
-figure:
-  template: line.sota_compare
-  data: results.csv
-  x: epoch
-  y: acc
-  hue: method
+significance:
+  - compare: [A, B]
+    text: "*"
 ```
 
----
+Grouped ablation comparisons against a shared baseline:
 
-## 🧠 Design Philosophy
+```yaml
+significance:
+  - within: each
+    against: Base
+    text: p<0.05
+```
 
-PaperPlot is built on one core idea:
+You can also exclude categories or provide multiple labels:
 
-> **Scientific plotting should be standardized, not handcrafted.**
+```yaml
+significance:
+  - within: all
+    against: Base
+    exclude: [Oracle]
+    text: [ns, "**"]
+```
 
-Instead of:
+## CLI
 
-* tweaking styles manually
-* duplicating plotting scripts
-* fighting Matplotlib defaults
+PaperPlot also exposes a CLI:
 
-You get:
+```bash
+paperplot render examples/bar_ablation.yaml
+paperplot render configs/
+paperplot gallery docs/gallery
+paperplot assets examples/assets
+paperplot validate-config examples/bar_ablation.yaml
+paperplot validate-assets examples/assets
+paperplot --json list templates
+```
 
-* reusable templates
-* consistent styles
-* venue-aware figures
+Key commands:
 
----
+* `paperplot render <config>` renders a figure from JSON or YAML config
+* `paperplot render <directory>` batch-renders every matching config file in that directory
+* `paperplot gallery <output_dir>` renders the built-in example gallery
+* `paperplot assets <path>` loads project-local assets and prints a summary
+* `paperplot validate-config <target>` validates config files without rendering
+* `paperplot validate-assets <target>` validates asset roots or project roots without rendering
+* `paperplot list [profiles|styles|templates|plotters|all]` lists registered items
 
-## 🏗️ Project Structure
+`paperplot validate <target>` is still supported as a compatibility wrapper, but the explicit commands are preferred.
+
+Global CLI output flags:
+
+* `--json` prints structured JSON output suitable for automation
+* `--quiet` suppresses normal stdout output while preserving exit status
+
+## Example gallery
+
+```python
+from paperplot import render_gallery
+
+render_gallery("docs/gallery")
+```
+
+This renders a small representative gallery used both for examples and for visual regression baselines.
+
+### Preview
+
+![SOTA comparison](docs/gallery/line_sota_compare.png)
+![Training curve](docs/gallery/line_training_curve.png)
+![Ablation study](docs/gallery/bar_ablation.png)
+![Error distribution](docs/gallery/hist_error_distribution.png)
+![Distribution comparison](docs/gallery/box_distribution_compare.png)
+![Inference cost](docs/gallery/bar_resource_tradeoff.png)
+
+The current built-in gallery cases are:
+
+* `line_sota_compare`
+* `line_training_curve`
+* `bar_ablation`
+* `scatter_clusters`
+* `hist_error_distribution`
+* `box_distribution_compare`
+* `heatmap_metrics`
+* `bar_resource_tradeoff`
+* `report_layout`
+
+## Styling existing Matplotlib code
+
+```python
+from paperplot import use_style
+
+use_style(profile="icml", visual="academic-muted", size="single")
+```
+
+## Architecture
+
+The implemented architecture is intentionally lean:
 
 ```text
-paperplot/
-├── profiles/        # venue configs (ICML, ACL, etc.)
-├── styles/          # visual styles
-├── templates/       # reusable plot templates
-├── plots/           # plot implementations
-├── core/            # config + rendering engine
-├── registry/        # template/style registry
-└── tests/
+built-in specs / YAML
+        ↓
+registry
+        ↓
+resolver
+        ↓
+Matplotlib renderer
 ```
 
----
+See `DESIGN_DOCUMENT.md` for the repository-aligned design.
 
-## 📊 Supported Plots (v0.1)
+## Built-in presets
 
-* ✅ Line plot
-* ✅ Bar plot
-* ✅ Histogram
-* ✅ Box plot
+Profiles:
+`icml`, `neurips`, `acl`, `cvpr`, `emnlp`, `nature`
 
-More coming soon:
+Styles:
+`default`, `academic-muted`, `academic-bright`, `grayscale-safe`, `nature-clean`
 
-* Heatmaps
-* Scatter plots
-* Multi-panel figures
-* Ablation templates
+Templates:
+`line.default`, `line.scaling_law`, `line.sota_compare`, `line.training_curve`, `scatter.default`, `scatter.pareto_frontier`, `bar.default`, `bar.ablation`, `grouped_bar.default`, `grouped_bar.benchmark_compare`, `ablation.study`, `hist.default`, `box.default`, `box.distribution_compare`, `heatmap.default`, `heatmap.benchmark_matrix`, `radar.default`, `table.default`, `subplots.default`, `table_mix.default`, `table_mix.paper_summary`
 
----
+## Public API
 
-## 🛣️ Roadmap
+Top-level exports currently include:
 
-### v0.1 (MVP)
+* asset loading and lookup:
+  * `autoload_project_assets`
+  * `load_assets_from_dir`
+  * `load_profiles_from_dir`
+  * `load_styles_from_dir`
+  * `load_templates_from_dir`
+  * `get_profile`
+  * `get_style`
+  * `get_template`
+* registry listing:
+  * `list_profiles`
+  * `list_styles`
+  * `list_templates`
+  * `list_plotters`
+* registration:
+  * `register_profile`
+  * `register_style`
+  * `register_template`
+* rendering and style:
+  * `plot`
+  * `render_template`
+  * `plot_from_config`
+  * `render_gallery`
+  * `use_style`
+  * `managed_figure`
 
-* Style system
-* Template system
-* Core plots (line, bar, hist, box)
-
-### v0.2
-
-* More templates
-* Advanced layouts
-* CLI support
-
-### v0.3
-
-* Smart layout
-* Style inference
-* Figure composition tools
-
----
-
-## 🤝 Contributing
-
-Contributions are welcome!
-
-* Add new templates
-* Improve styles
-* Support new plot types
-* Improve documentation
-
----
-
-## 📄 License
-
-MIT License
-
----
-
-## ⭐ Final Note
-
-PaperPlot is not just another plotting wrapper.
-
-> It’s a step toward making **scientific visualization reproducible, consistent, and efficient**.
-
+See [docs/GALLERY.md](/root/PaperPlot/docs/GALLERY.md) for the gallery contract and refresh commands.
+See [docs/CLI.md](/root/PaperPlot/docs/CLI.md) for the full CLI reference and CI-oriented examples.

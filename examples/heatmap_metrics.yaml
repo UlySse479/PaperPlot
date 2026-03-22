@@ -1,0 +1,16 @@
+paper:
+  profile: acl
+  style: academic-muted
+
+figure:
+  template: heatmap.default
+  data:
+    matrix:
+      - [0.92, 0.75, 0.61]
+      - [0.71, 0.88, 0.67]
+      - [0.64, 0.69, 0.91]
+    x_labels: [Model A, Model B, Model C]
+    y_labels: [Dataset 1, Dataset 2, Dataset 3]
+  title: Metric Heatmap
+  annotate: true
+  output: figures/heatmap_metrics.png

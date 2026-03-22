@@ -1,0 +1,22 @@
+{
+  "name": "lab",
+  "font": {
+    "family": "serif",
+    "size": 9,
+    "title_size": 9,
+    "label_size": 9,
+    "tick_size": 8,
+    "mathtext_fontset": "dejavuserif"
+  },
+  "sizes": {
+    "single": [3.05, 2.15],
+    "double": [6.45, 3.0],
+    "square": [3.0, 3.0]
+  },
+  "export": {
+    "formats": ["pdf", "png"],
+    "dpi": 300,
+    "bbox_inches": "tight",
+    "transparent": false
+  }
+}

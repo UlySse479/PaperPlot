@@ -1,0 +1,15 @@
+paper:
+  profile: acl
+  style: academic-muted
+
+figure:
+  template: heatmap.benchmark_matrix
+  data:
+    matrix:
+      - [74.2, 69.5, 71.8, 73.0]
+      - [66.1, 72.8, 70.4, 71.2]
+      - [62.7, 68.3, 76.1, 69.4]
+    x_labels: [Arabic, German, Swahili, Turkish]
+    y_labels: [Model A, Aya-style, Distilled]
+  title: Multilingual Benchmark Matrix
+  output: figures/acl_benchmark_matrix.pdf

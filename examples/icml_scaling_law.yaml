@@ -1,0 +1,19 @@
+paper:
+  profile: icml
+  style: academic-muted
+
+figure:
+  template: line.scaling_law
+  data:
+    tokens: [10000000, 30000000, 100000000, 300000000, 1000000000, 10000000, 30000000, 100000000, 300000000, 1000000000]
+    loss: [2.52, 2.31, 2.14, 2.02, 1.94, 2.64, 2.41, 2.22, 2.10, 2.01]
+    run: [Rectified Flow Transformer, Rectified Flow Transformer, Rectified Flow Transformer, Rectified Flow Transformer, Rectified Flow Transformer, Diffusion Baseline, Diffusion Baseline, Diffusion Baseline, Diffusion Baseline, Diffusion Baseline]
+  x: tokens
+  y: loss
+  hue: run
+  xscale: log
+  xformatter: scientific
+  xlabel: Training Tokens
+  ylabel: Validation Loss
+  title: Scaling Trend
+  output: figures/icml_scaling_law.pdf

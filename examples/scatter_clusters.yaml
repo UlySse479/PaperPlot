@@ -1,0 +1,15 @@
+paper:
+  profile: icml
+  style: academic-muted
+
+figure:
+  template: scatter.default
+  data:
+    dim1: [1.0, 1.8, 2.4, 3.2, 1.3, 2.1, 2.9]
+    dim2: [2.2, 2.8, 2.5, 3.9, 1.4, 2.1, 3.1]
+    cluster: [A, A, A, A, B, B, B]
+  x: dim1
+  y: dim2
+  hue: cluster
+  title: Cluster View
+  output: figures/scatter_clusters.png

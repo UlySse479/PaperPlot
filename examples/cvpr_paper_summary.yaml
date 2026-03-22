@@ -1,0 +1,39 @@
+paper:
+  profile: cvpr
+  style: grayscale-safe
+
+figure:
+  template: table_mix.paper_summary
+  data:
+    placeholder: [1]
+  figure_title: Vision Paper Summary
+  figure_note: Trade-off summary plus headline benchmark result.
+  output: figures/cvpr_paper_summary.pdf
+  elements:
+    - template: table.default
+      title: Benchmark Summary
+      row: 0
+      col: 0
+      data:
+        - Model: FastGS
+          Score: 78.8
+          FPS: 35.7
+        - Model: Mip-Splatting
+          Score: 80.5
+          FPS: 29.4
+        - Model: PaperPlotVision
+          Score: 82.8
+          FPS: 14.1
+    - template: scatter.pareto_frontier
+      title: Quality vs Speed
+      row: 0
+      col: 1
+      data:
+        latency: [28, 34, 42, 57, 71]
+        score: [78.8, 80.5, 81.0, 82.4, 82.8]
+        method: [FastGS, Mip-Splatting, PixelSplat, HumanFeedback, PaperPlotVision]
+      x: latency
+      y: score
+      labels: method
+      xlabel: Render Time (ms)
+      ylabel: Quality Score

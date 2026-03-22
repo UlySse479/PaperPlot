@@ -1,0 +1,19 @@
+paper:
+  profile: neurips
+  style: academic-bright
+
+figure:
+  template: ablation.study
+  data:
+    component: [Encoder, Encoder, Augment, Augment, Decoder, Decoder]
+    score: [82.1, 80.4, 81.7, 79.8, 82.5, 81.3]
+    variant: [Base, Removed, Base, Removed, Base, Removed]
+  x: component
+  y: score
+  hue: variant
+  title: Grouped Ablation with Significance
+  significance:
+    - within: each
+      against: Base
+      text: p<0.05
+  output: figures/grouped_ablation_significance.pdf

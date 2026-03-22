@@ -1,0 +1,17 @@
+paper:
+  profile: cvpr
+  style: grayscale-safe
+
+figure:
+  template: scatter.pareto_frontier
+  data:
+    latency: [28, 34, 42, 57, 71]
+    score: [78.8, 80.5, 81.0, 82.4, 82.8]
+    method: [FastGS, Mip-Splatting, PixelSplat, HumanFeedback, PaperPlotVision]
+  x: latency
+  y: score
+  labels: method
+  xlabel: Render Time (ms)
+  ylabel: Quality Score
+  title: Vision Tradeoff Frontier
+  output: figures/cvpr_pareto_frontier.pdf

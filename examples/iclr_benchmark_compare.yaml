@@ -1,0 +1,16 @@
+paper:
+  profile: icml
+  style: academic-bright
+
+figure:
+  template: grouped_bar.benchmark_compare
+  data:
+    benchmark: [MMLU, MMLU, GSM8K, GSM8K, HumanEval, HumanEval]
+    score: [74.8, 77.2, 68.5, 71.9, 52.3, 58.7]
+    model: [Baseline, Improved, Baseline, Improved, Baseline, Improved]
+  x: benchmark
+  y: score
+  hue: model
+  ylabel: Score
+  title: Cross-Benchmark Comparison
+  output: figures/iclr_benchmark_compare.pdf

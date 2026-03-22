@@ -1,0 +1,13 @@
+paper:
+  profile: icml
+  style: academic-muted
+
+figure:
+  template: line.training_curve
+  data: results/training_curve.csv
+  x: epoch
+  y: accuracy
+  hue: method
+  output: figures/training_curve.pdf
+  title: Training Curve
+  size: double

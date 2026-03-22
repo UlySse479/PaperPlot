@@ -1,0 +1,14 @@
+{
+  "name": "lab-muted",
+  "base": "default",
+  "palette": {
+    "colors": ["#1E3A5F", "#5C7A99", "#C4834A", "#8C5E58"]
+  },
+  "axes": {
+    "grid": true,
+    "grid_alpha": 0.14
+  },
+  "lines": {
+    "linewidth": 2.15
+  }
+}
