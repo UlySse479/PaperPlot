@@ -147,15 +147,15 @@ plot(
 
 Additional example configs:
 
-* [scatter_clusters.yaml](/root/PaperPlot/examples/scatter_clusters.yaml)
-* [heatmap_metrics.yaml](/root/PaperPlot/examples/heatmap_metrics.yaml)
-* [report_layout.yaml](/root/PaperPlot/examples/report_layout.yaml)
-* [grouped_ablation_significance.yaml](/root/PaperPlot/examples/grouped_ablation_significance.yaml)
-* [icml_scaling_law.yaml](/root/PaperPlot/examples/icml_scaling_law.yaml)
-* [cvpr_pareto_frontier.yaml](/root/PaperPlot/examples/cvpr_pareto_frontier.yaml)
-* [acl_benchmark_matrix.yaml](/root/PaperPlot/examples/acl_benchmark_matrix.yaml)
-* [iclr_benchmark_compare.yaml](/root/PaperPlot/examples/iclr_benchmark_compare.yaml)
-* [cvpr_paper_summary.yaml](/root/PaperPlot/examples/cvpr_paper_summary.yaml)
+* [scatter_clusters.yaml](./examples/scatter_clusters.yaml)
+* [heatmap_metrics.yaml](./examples/heatmap_metrics.yaml)
+* [report_layout.yaml](./examples/report_layout.yaml)
+* [grouped_ablation_significance.yaml](./examples/grouped_ablation_significance.yaml)
+* [icml_scaling_law.yaml](./examples/icml_scaling_law.yaml)
+* [cvpr_pareto_frontier.yaml](./examples/cvpr_pareto_frontier.yaml)
+* [acl_benchmark_matrix.yaml](./examples/acl_benchmark_matrix.yaml)
+* [iclr_benchmark_compare.yaml](./examples/iclr_benchmark_compare.yaml)
+* [cvpr_paper_summary.yaml](./examples/cvpr_paper_summary.yaml)
 
 ### Award-inspired templates
 
@@ -249,12 +249,12 @@ This renders a small representative gallery used both for examples and for visua
 
 ### Preview
 
-![SOTA comparison](docs/gallery/line_sota_compare.png)
-![Training curve](docs/gallery/line_training_curve.png)
-![Ablation study](docs/gallery/bar_ablation.png)
-![Error distribution](docs/gallery/hist_error_distribution.png)
-![Distribution comparison](docs/gallery/box_distribution_compare.png)
-![Inference cost](docs/gallery/bar_resource_tradeoff.png)
+![SOTA comparison](./docs/gallery/line_sota_compare.png)
+![Training curve](./docs/gallery/line_training_curve.png)
+![Ablation study](./docs/gallery/bar_ablation.png)
+![Error distribution](./docs/gallery/hist_error_distribution.png)
+![Distribution comparison](./docs/gallery/box_distribution_compare.png)
+![Inference cost](./docs/gallery/bar_resource_tradeoff.png)
 
 The current built-in gallery cases are:
 
@@ -333,5 +333,5 @@ Top-level exports currently include:
   * `use_style`
   * `managed_figure`
 
-See [docs/GALLERY.md](/root/PaperPlot/docs/GALLERY.md) for the gallery contract and refresh commands.
-See [docs/CLI.md](/root/PaperPlot/docs/CLI.md) for the full CLI reference and CI-oriented examples.
+See [docs/GALLERY.md](./docs/GALLERY.md) for the gallery contract and refresh commands.
+See [docs/CLI.md](./docs/CLI.md) for the full CLI reference and CI-oriented examples.
