@@ -1,261 +1,301 @@
-# PaperPlot
+# 📊 PaperPlot
 
-PaperPlot is a minimal, opinionated plotting toolkit for generating **publication-quality figures** using Matplotlib.
+> A Matplotlib-based framework for **consistent, publication-quality scientific figures**.
 
-It is designed for researchers who want:
-- Consistent figure styles across papers
-- Reusable plotting templates
-- Clean, minimal APIs without heavy abstraction
-- High-quality export (PDF / SVG / PNG) out of the box
-
-> PaperPlot is not a general-purpose visualization library.  
-> It focuses on **academic figures** only.
+PaperPlot helps you move from *manual plotting and ad-hoc styling* to a **standardized, template-driven workflow** for academic papers.
 
 ---
 
-## ✨ Features
+## ✨ Why PaperPlot?
 
-- 📐 **Publication-ready defaults**
-  - Proper font sizes, line widths, spacing, and layout
-- 🎨 **Design tokens system**
-  - Centralized control of figure aesthetics
-- 🧩 **Theme + Template layering**
-  - Base styles + reusable high-level templates
-- 📊 **Core plot types (v0.1)**
-  - Line plot
-  - Bar plot
-  - Histogram
-  - Box plot
-- 📦 **Multiple export formats**
-  - PNG / PDF / SVG
-- 🔁 **Template reuse**
-  - Register and reuse custom plotting styles
+If you’ve ever struggled with:
+
+* Inconsistent fonts and styles across figures
+* Rewriting plotting scripts for every paper
+* Adjusting figure sizes for different venues (ICML, ACL, CVPR…)
+* Ugly default Matplotlib plots
+* Hard-to-reuse complex figures (ablation, comparisons, etc.)
+
+PaperPlot is designed for you.
 
 ---
 
-## 🚀 Quick Start
+## 🚀 Key Features
 
-```python
-import numpy as np
-from paperplot import line_plot, export
+### 🎯 Paper-level Consistency
 
-x = np.linspace(0, 10, 100)
-y = np.sin(x)
+* Unified fonts, sizes, colors, and layout across all figures
+* One configuration → consistent entire paper
 
-fig, ax = line_plot(
-    x=x,
-    y=y,
-    title="Sine Wave",
-    xlabel="x",
-    ylabel="sin(x)",
-)
+### 🏛️ Venue-aware Profiles
 
-export(fig, "outputs/sine.pdf")
-````
+Built-in support for:
+
+* ICML / NeurIPS
+* ACL / EMNLP / NAACL
+* CVPR
+* Nature-style figures
 
 ---
 
-## 🧠 Core Concepts
+### 🎨 Hierarchical Style System
 
-### 1. Design Tokens
-
-PaperPlot uses **design tokens** to define all visual properties:
-
-* figure size
-* font sizes
-* line widths
-* colors
-* grid styles
-* spacing
-
-These tokens ensure consistency across all figures.
-
----
-
-### 2. Theme
-
-A **theme** defines a base style:
-
-```python
-theme="paper"
+```text
+Profile (venue)
+   ↓
+Visual Style
+   ↓
+Override
+   ↓
+Template
 ```
 
-or
-
-```python
-from paperplot import Theme
-theme = Theme.default()
-```
+* Clean defaults
+* Flexible overrides
+* No more style chaos
 
 ---
 
-### 3. Template
+### 🧩 Template-driven Plotting
 
-A **template** is a higher-level style built on top of tokens.
-
-```python
-template="icml"
-```
-
-Templates allow:
-
-* consistent styling across multiple figures
-* reuse of previously defined figure styles
-
----
-
-### 4. Overrides
-
-You can override any style locally:
+Stop rewriting plotting code.
 
 ```python
-fig, ax = line_plot(
-    x=x,
-    y=y,
-    overrides={
-        "figure.width": 3.5,
-        "font.size": 8,
-    },
+from paperplot import plot
+
+plot(
+    template="line.sota_compare",
+    data=df,
+    x="epoch",
+    y="accuracy",
+    hue="method",
+    output="figures/acc.pdf"
 )
 ```
 
 ---
 
-### 🔁 Style Priority
+### 🔁 Reusable Templates
 
-PaperPlot resolves styles in the following order:
+* Register your own plotting templates
+* Reuse across projects and papers
 
+```python
+register_template(
+    name="line.my_lab_style",
+    base="line.sota_compare"
+)
 ```
-default tokens
-< theme
-< template
-< local overrides
+
+---
+
+### 🔧 Minimal Migration Cost
+
+Already using Matplotlib? No problem.
+
+```python
+from paperplot import use_style
+
+use_style(profile="icml", visual="academic-muted")
+
+plt.plot(x, y)
+plt.savefig("fig.pdf")
+```
+
+---
+
+### 📦 Multiple Input Formats
+
+Supports:
+
+* CSV
+* pandas DataFrame
+* numpy arrays
+* Python dict/list
+
+---
+
+### 📐 Size Tokens (Paper-friendly)
+
+Instead of manually tuning figsize:
+
+```python
+size="single"   # single column
+size="double"   # double column
+size="square"
+```
+
+---
+
+### 📤 Publication-ready Export
+
+Automatically handles:
+
+* PDF / PNG / SVG
+* DPI
+* tight layout
+* font embedding
+
+---
+
+## 📚 Quick Start
+
+### Installation (coming soon)
+
+```bash
+pip install paperplot
+```
+
+---
+
+### Example: Line Plot
+
+```python
+from paperplot import plot
+import pandas as pd
+
+df = pd.read_csv("results.csv")
+
+plot(
+    template="line.sota_compare",
+    data=df,
+    x="epoch",
+    y="accuracy",
+    hue="method",
+    output="figures/acc.pdf"
+)
+```
+
+---
+
+### Example: Use with Existing Matplotlib Code
+
+```python
+from paperplot import use_style
+import matplotlib.pyplot as plt
+
+use_style(profile="icml", visual="academic-muted")
+
+plt.plot(x, y)
+plt.xlabel("Epoch")
+plt.ylabel("Accuracy (%)")
+plt.savefig("fig.pdf")
+```
+
+---
+
+## ⚙️ Configuration (YAML)
+
+PaperPlot supports config-driven workflows:
+
+```yaml
+paper:
+  profile: icml
+  style: academic-muted
+
+figure:
+  template: line.sota_compare
+  data: results.csv
+  x: epoch
+  y: acc
+  hue: method
+```
+
+---
+
+## 🧠 Design Philosophy
+
+PaperPlot is built on one core idea:
+
+> **Scientific plotting should be standardized, not handcrafted.**
+
+Instead of:
+
+* tweaking styles manually
+* duplicating plotting scripts
+* fighting Matplotlib defaults
+
+You get:
+
+* reusable templates
+* consistent styles
+* venue-aware figures
+
+---
+
+## 🏗️ Project Structure
+
+```text
+paperplot/
+├── profiles/        # venue configs (ICML, ACL, etc.)
+├── styles/          # visual styles
+├── templates/       # reusable plot templates
+├── plots/           # plot implementations
+├── core/            # config + rendering engine
+├── registry/        # template/style registry
+└── tests/
 ```
 
 ---
 
 ## 📊 Supported Plots (v0.1)
 
-### Line Plot
+* ✅ Line plot
+* ✅ Bar plot
+* ✅ Histogram
+* ✅ Box plot
 
-```python
-from paperplot import line_plot
-```
+More coming soon:
 
-### Bar Plot
-
-```python
-from paperplot import bar_plot
-```
-
-### Histogram
-
-```python
-from paperplot import hist_plot
-```
-
-### Box Plot
-
-```python
-from paperplot import box_plot
-```
-
----
-
-## 🎨 Templates
-
-Register your own template:
-
-```python
-from paperplot import register_template
-
-register_template("my_template", {
-    "font.size": 9,
-    "line.width": 1.2,
-})
-```
-
-Use it:
-
-```python
-line_plot(x, y, template="my_template")
-```
-
----
-
-## 📤 Exporting Figures
-
-```python
-from paperplot import export
-
-export(fig, "figure.pdf")
-export(fig, "figure.png")
-export(fig, "figure.svg")
-```
-
----
-
-## 📁 Project Structure
-
-```
-paperplot/
-  src/paperplot/
-  examples/
-  tests/
-```
-
----
-
-## 🧪 Examples
-
-See the `examples/` directory:
-
-* `line_basic.py`
-* `bar_basic.py`
-* `hist_basic.py`
-* `box_basic.py`
-* `template_demo.py`
-
----
-
-## 🧭 Philosophy
-
-PaperPlot follows a few strict principles:
-
-* **Minimal over flexible**
-* **Consistency over customization**
-* **Explicit over magic**
-* **Reusable over one-off styling**
-
----
-
-## 🚫 What PaperPlot is NOT
-
-* Not a replacement for Matplotlib
-* Not a grammar-of-graphics system
-* Not an interactive visualization tool
-* Not a dashboard or web plotting library
-
----
-
-## 🔜 Roadmap
-
-### v0.1
-
-* Core plots
-* Token system
-* Template system
-* Export pipeline
-
-### v0.2 (planned)
-
+* Heatmaps
+* Scatter plots
 * Multi-panel figures
-* Subplot layout system
-* Better legend/layout control
-* More built-in templates (ICML / ACL / Nature)
+* Ablation templates
+
+---
+
+## 🛣️ Roadmap
+
+### v0.1 (MVP)
+
+* Style system
+* Template system
+* Core plots (line, bar, hist, box)
+
+### v0.2
+
+* More templates
+* Advanced layouts
+* CLI support
+
+### v0.3
+
+* Smart layout
+* Style inference
+* Figure composition tools
+
+---
+
+## 🤝 Contributing
+
+Contributions are welcome!
+
+* Add new templates
+* Improve styles
+* Support new plot types
+* Improve documentation
 
 ---
 
 ## 📄 License
 
 MIT License
+
+---
+
+## ⭐ Final Note
+
+PaperPlot is not just another plotting wrapper.
+
+> It’s a step toward making **scientific visualization reproducible, consistent, and efficient**.
+
