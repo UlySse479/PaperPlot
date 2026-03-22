@@ -1,0 +1,76 @@
+routing_policy:
+  authority:
+    only_lead_can_route: true
+    subagents_cannot_call_each_other: true
+    only_lead_can_finalize: true
+
+  default_flow:
+    - normalize
+    - route
+    - system_if_needed
+    - render_if_needed
+    - quality_required
+    - integrate
+    - finalize
+
+  system_architect:
+    trigger_when:
+      - request_involves_token_theme_template_spec_registry
+      - request_involves_config_or_override_policy
+      - layer_assignment_is_unclear
+      - template_registration_or_versioning_is_needed
+      - consistency_risk_is_present
+    block_when:
+      - abstraction_layer_is_wrong
+      - override_governance_is_uncontrolled
+      - template_structure_is_unstable
+
+  rendering_agent:
+    trigger_when:
+      - renderer_implementation_is_needed
+      - export_pipeline_changes_are_needed
+      - visual_detail_refinement_is_needed
+      - style_mapping_to_matplotlib_is_needed
+    block_when:
+      - system_abstraction_is_missing
+      - implementation_requires_hardcoded_style_hacks
+      - problem_belongs_to_system_layer
+
+  quality_agent:
+    required_when:
+      - code_changed
+      - rendering_changed
+      - figure_output_changed
+      - export_behavior_changed
+      - docs_or_examples_changed
+      - config_or_template_changed
+    block_when:
+      - critical_tests_missing
+      - regression_unexplained
+      - high_severity_visual_regression
+      - docs_out_of_sync
+      - examples_not_runnable
+      - figure_not_publication_ready
+
+  fallback_paths:
+    - from: rendering_agent
+      to: system_architect
+      via: lead
+      when:
+        - abstraction_gap_detected
+        - rendering_hack_would_be_required
+
+    - from: quality_agent
+      to: rendering_agent
+      via: lead
+      when:
+        - implementation_instability_detected
+        - visual_regression_detected
+        - docs_examples_need_fix
+
+    - from: quality_agent
+      to: system_architect
+      via: lead
+      when:
+        - quality_issue_originates_from_system_design
+        - configuration_or_template_governance_is_insufficient

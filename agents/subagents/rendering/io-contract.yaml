@@ -1,0 +1,124 @@
+input:
+  task:
+    request: string
+    task_type:
+      - renderer_implementation
+      - renderer_extension
+      - visual_refinement
+      - export_pipeline
+      - style_mapping
+      - rendering_refactor
+      - bugfix
+
+    chart_type:
+      - line
+      - bar
+      - hist
+      - box
+      - unknown
+
+    target_artifacts:
+      - renderer_code
+      - export_code
+      - style_mapping_code
+      - example
+      - test
+
+    inputs:
+      data_contract: object
+      chart_spec: object
+      style_spec: object
+      layout_spec: object
+      export_spec: object
+
+    system_context:
+      tokens: object
+      theme: object
+      template: object
+      spec: object
+      registry_refs: array
+
+    visual_requirements:
+      figure_size: object
+      font_policy: object
+      legend_policy: object
+      grid_policy: object
+      spine_policy: object
+      tick_policy: object
+      axis_policy: object
+
+    export_requirements:
+      formats:
+        - png
+        - svg
+        - pdf
+      dpi: number
+      bbox: string
+      transparent: boolean
+      background: string
+
+    constraints:
+      explicit: array
+      implicit: array
+
+    quality_requirements:
+      publication_quality: boolean
+      consistency: boolean
+      reusability: boolean
+      testability: boolean
+
+output:
+  analysis:
+    request_understanding: string
+    rendering_goal: string
+    chart_type: string
+    owned_scope: array
+    out_of_scope: array
+
+  implementation_plan:
+    renderer_strategy: string
+    shared_components: array
+    matplotlib_mechanisms: array
+    export_strategy: string
+
+  style_mapping:
+    token_to_artist: array
+    theme_to_renderer: array
+    template_to_layout: array
+    overrides_applied: array
+    overrides_rejected: array
+
+  artifacts:
+    renderer_files: array
+    helper_files: array
+    export_files: array
+    example_files: array
+    test_files: array
+
+  visual_details:
+    figure_size: string
+    font_handling: string
+    legend_handling: string
+    grid_handling: string
+    spine_handling: string
+    tick_handling: string
+
+  export_result:
+    formats_supported: array
+    defaults_used: object
+    caveats: array
+
+  testing_notes:
+    suggested_tests: array
+    executed_tests: array
+    known_risks: array
+
+  guardrail_check:
+    hardcoded_style_leakage: boolean
+    abstraction_bypass: boolean
+    duplicated_renderer_logic: boolean
+    export_inconsistency: boolean
+
+  handoff:
+    next_agent: string
+    integration_notes: array

@@ -1,0 +1,88 @@
+version: 1.0
+
+agent: paperplot-lead
+
+schemas:
+
+  input:
+    type: object
+    required:
+      - user_request
+      - task_type
+      - architecture_layer
+
+    properties:
+      user_request:
+        type: string
+
+      interpreted_goal:
+        type: string
+
+      task_type:
+        type: string
+        enum: [design, implementation, refactor, debug, extension, testing, documentation]
+
+      architecture_layer:
+        type: string
+        enum: [policy, schema, token, theme, template, chart, composition, rendering, export, validation, testing, docs]
+
+      modules:
+        type: array
+        items:
+          type: string
+
+      constraints:
+        type: object
+        properties:
+          explicit:
+            type: array
+            items: { type: string }
+          implicit:
+            type: array
+            items: { type: string }
+
+  output:
+    type: object
+    required:
+      - analysis
+      - plan
+      - result
+      - testing
+
+    properties:
+      analysis:
+        type: object
+        properties:
+          task_understanding: { type: string }
+          phase: { type: string }
+          architecture_layer: { type: string }
+          modules:
+            type: array
+            items: { type: string }
+
+      plan:
+        type: object
+        properties:
+          strategy: { type: string }
+          subagents:
+            type: array
+            items: { type: string }
+          skills:
+            type: array
+            items: { type: string }
+
+      result:
+        type: object
+        properties:
+          artifacts:
+            type: array
+            items: { type: string }
+
+      testing:
+        type: object
+        properties:
+          method: { type: string }
+          status:
+            type: string
+            enum: [pass, fail]
+          notes: { type: string }

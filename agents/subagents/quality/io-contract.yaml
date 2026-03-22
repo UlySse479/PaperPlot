@@ -1,0 +1,104 @@
+input:
+  task:
+    request: string
+
+    task_type:
+      - unit_testing
+      - regression_testing
+      - visual_regression
+      - documentation_sync
+      - example_validation
+      - figure_review
+      - qa_audit
+
+    target_scope:
+      modules: []
+      renderers: []
+      templates: []
+      examples: []
+
+    artifacts:
+      code_files: []
+      renderer_files: []
+      example_files: []
+      config_files: []
+
+    expected_outputs:
+      - test_suite
+      - regression_report
+      - visual_diff
+      - doc_update
+      - review_report
+
+    quality_requirements:
+      correctness: true
+      stability: true
+      reproducibility: true
+      publication_quality: true
+      usability: true
+
+    constraints:
+      explicit: []
+      implicit: []
+
+output:
+  analysis:
+    request_understanding: ""
+    quality_goal: ""
+    scope: []
+
+  testing:
+    unit_tests:
+      added: []
+      coverage_notes: ""
+    integration_tests:
+      added: []
+    regression_tests:
+      added: []
+    visual_tests:
+      added: []
+
+  regression:
+    baseline: ""
+    changes_detected: []
+    classification:
+      expected: []
+      unexpected: []
+
+  visual_review:
+    differences: []
+    severity:
+      - low
+      - medium
+      - high
+    explanation: ""
+
+  figure_critique:
+    readability: ""
+    clarity: ""
+    visual_hierarchy: ""
+    issues: []
+    suggestions: []
+
+  documentation:
+    readme_updates: []
+    example_updates: []
+    doc_gaps: []
+
+  quality_verdict:
+    code_reliable: true | false
+    figure_publishable: true | false
+    user_usable: true | false
+
+  risks:
+    - ""
+
+  guardrail_check:
+    missing_tests: false
+    unstable_outputs: false
+    undocumented_behavior: false
+    visual_regression_ignored: false
+
+  handoff:
+    next_agent: ""
+    required_fixes: []
