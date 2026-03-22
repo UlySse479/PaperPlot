@@ -249,10 +249,11 @@ This renders a small representative gallery used both for examples and for visua
 
 ### Preview
 
-![SOTA comparison](./docs/gallery/line_sota_compare.png)
-![Training curve](./docs/gallery/line_training_curve.png)
-![Ablation study](./docs/gallery/bar_ablation.png)
-![Distribution comparison](./docs/gallery/box_distribution_compare.png)
+<img src="./docs/gallery/line_sota_compare.png" width="45%">
+<img src="./docs/gallery/line_training_curve.png" width="45%">
+<br>
+<img src="./docs/gallery/bar_ablation.png" width="45%">
+<img src="./docs/gallery/box_distribution_compare.png" width="45%">
 
 The current built-in gallery cases are:
 
