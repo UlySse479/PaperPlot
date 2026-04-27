@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="1200" height="820" viewBox="0 0 1200 820" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <rect width="1200" height="820" fill="#F4F8FB"/>
+  <rect x="32" y="32" width="1136" height="756" rx="28" fill="#EAF2F7"/>
+  <text x="72" y="96" fill="#173042" font-size="34" font-weight="800">Scientific Color Advisor</text>
+  <text x="72" y="136" fill="#537085" font-size="22" font-weight="500">Fixed snapshot generated from the live manuscript line-plot recommendation.</text>
+  <rect x="72" y="176" width="1056" height="270" rx="20" fill="#FFFFFF" stroke="#D9E2E8" />
+<text x="96" y="212" fill="#173042" font-size="20" font-weight="700">Recommendation</text>
+  <text x="96" y="238" fill="#173042" font-size="28" font-weight="800">Manuscript Cool</text>
+  <text x="96" y="274" fill="#537085" font-size="20" font-weight="500">manuscript-cool-light</text>
+  <text x="96" y="312" fill="#2D6A8A" font-size="21" font-weight="700">Score 119 | 0 errors, 4 warnings, score 72</text>
+  <circle cx="96" cy="342" r="4" fill="#2D6A8A" />
+<text x="112" y="348" fill="#38566A" font-size="20" font-weight="500">Matches line-plot with a qualitative palette.</text>
+<circle cx="96" cy="374" r="4" fill="#2D6A8A" />
+<text x="112" y="380" fill="#38566A" font-size="20" font-weight="500">Fits manuscript usage on a light background.</text>
+<circle cx="96" cy="406" r="4" fill="#2D6A8A" />
+<text x="112" y="412" fill="#38566A" font-size="20" font-weight="500">Avoids an obvious red/green conflict warning.</text>
+<circle cx="96" cy="438" r="4" fill="#2D6A8A" />
+<text x="112" y="444" fill="#38566A" font-size="20" font-weight="500">Keeps the palette publication-safe and restrained.</text>
+  <rect x="72" y="476" width="1056" height="220" rx="20" fill="#FFFFFF" stroke="#D9E2E8" />
+<text x="96" y="512" fill="#173042" font-size="20" font-weight="700">Palette</text>
+  <rect x="96" y="530" width="188" height="84" rx="18" fill="#2F5A78" stroke="#D9E2E8" />
+<text x="110" y="596" fill="#F7FAFC" font-size="18" font-weight="700">#2F5A78</text>
+<rect x="298" y="530" width="188" height="84" rx="18" fill="#55738A" stroke="#D9E2E8" />
+<text x="312" y="596" fill="#F7FAFC" font-size="18" font-weight="700">#55738A</text>
+<rect x="500" y="530" width="188" height="84" rx="18" fill="#7A8C9D" stroke="#D9E2E8" />
+<text x="514" y="596" fill="#F7FAFC" font-size="18" font-weight="700">#7A8C9D</text>
+<rect x="702" y="530" width="188" height="84" rx="18" fill="#AAB8BF" stroke="#D9E2E8" />
+<text x="716" y="596" fill="#F7FAFC" font-size="18" font-weight="700">#AAB8BF</text>
+<rect x="904" y="530" width="188" height="84" rx="18" fill="#E2E7E7" stroke="#D9E2E8" />
+<text x="918" y="596" fill="#173042" font-size="18" font-weight="700">#E2E7E7</text>
+  <text x="96" y="646" fill="#537085" font-size="18" font-weight="500" text-anchor="start">Command</text>
+<text x="96" y="672" fill="#537085" font-size="18" font-weight="500" text-anchor="start">node skill/scripts/scientific-color-cli.mjs recommend --target scientific-figure --chart-type line-plot</text>
+<text x="96" y="698" fill="#537085" font-size="18" font-weight="500" text-anchor="start">--palette-class qualitative --usage manuscript --background light --tone restrained --priority colorblind-safe</text>
+<text x="96" y="724" fill="#537085" font-size="18" font-weight="500" text-anchor="start">--priority avoid-red-green</text>
+</svg>

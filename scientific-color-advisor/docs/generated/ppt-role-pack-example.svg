@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="1200" height="720" viewBox="0 0 1200 720" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <rect width="1200" height="720" fill="#1A2230"/>
+  <rect x="32" y="32" width="1136" height="656" rx="28" fill="#202B3A"/>
+  <text x="72" y="96" fill="#F7FAFC" font-size="34" font-weight="800">PPT Role Pack Snapshot</text>
+  <text x="72" y="136" fill="#B6C5D1" font-size="22" font-weight="500">Generated from the current course-slides presentation recommendation.</text>
+  <rect x="72" y="176" width="1056" height="120" rx="20" fill="#29384A" stroke="#374E64" />
+<text x="96" y="212" fill="#F7FAFC" font-size="20" font-weight="700">Template</text>
+  <text x="96" y="242" fill="#F7FAFC" font-size="28" font-weight="800">Slide Minimal Dark</text>
+  <text x="96" y="274" fill="#B6C5D1" font-size="20" font-weight="500">Title #F6F5F1 | Body #E8E4DE</text>
+  <rect x="72" y="324" width="528" height="300" rx="20" fill="#29384A" stroke="#374E64" />
+<text x="96" y="360" fill="#F7FAFC" font-size="20" font-weight="700">Slide Preview</text>
+  <rect x="106" y="364" width="460" height="220" rx="20" fill="#141C28" stroke="#3A4F63" />
+  <text x="142" y="430" fill="#F6F5F1" font-size="34" font-weight="800">Results Overview</text>
+  <text x="142" y="474" fill="#E8E4DE" font-size="20" font-weight="500">A dark-slide system with restrained neutrals and focused accents.</text>
+  <rect x="142" y="512" width="110" height="18" rx="9" fill="#274F69" />
+  <rect x="266" y="512" width="110" height="18" rx="9" fill="#AF845F" />
+  <rect x="390" y="512" width="110" height="18" rx="9" fill="#D9D2CA" />
+  <rect x="632" y="324" width="496" height="300" rx="20" fill="#29384A" stroke="#374E64" />
+<text x="656" y="360" fill="#F7FAFC" font-size="20" font-weight="700">Role Colors</text>
+  <rect x="664" y="396" width="148" height="68" rx="18" fill="#F6F5F1" stroke="#587084" />
+  <rect x="832" y="396" width="148" height="68" rx="18" fill="#E8E4DE" stroke="#587084" />
+  <rect x="664" y="506" width="96" height="68" rx="18" fill="#274F69" stroke="#587084" />
+  <rect x="780" y="506" width="96" height="68" rx="18" fill="#AF845F" stroke="#587084" />
+  <rect x="896" y="506" width="96" height="68" rx="18" fill="#D9D2CA" stroke="#587084" />
+  <text x="664" y="388" fill="#E8F0F5" font-size="18" font-weight="700" text-anchor="start">Title</text>
+<text x="664" y="410" fill="#E8F0F5" font-size="18" font-weight="700" text-anchor="start">#F6F5F1</text>
+  <text x="832" y="388" fill="#E8F0F5" font-size="18" font-weight="700" text-anchor="start">Body</text>
+<text x="832" y="410" fill="#E8F0F5" font-size="18" font-weight="700" text-anchor="start">#E8E4DE</text>
+  <text x="664" y="498" fill="#E8F0F5" font-size="17" font-weight="700" text-anchor="start">Accent A</text>
+<text x="664" y="518" fill="#E8F0F5" font-size="17" font-weight="700" text-anchor="start">#274F69</text>
+  <text x="780" y="498" fill="#E8F0F5" font-size="17" font-weight="700" text-anchor="start">Accent B</text>
+<text x="780" y="518" fill="#E8F0F5" font-size="17" font-weight="700" text-anchor="start">#AF845F</text>
+  <text x="896" y="498" fill="#E8F0F5" font-size="17" font-weight="700" text-anchor="start">Accent C</text>
+<text x="896" y="518" fill="#E8F0F5" font-size="17" font-weight="700" text-anchor="start">#D9D2CA</text>
+</svg>

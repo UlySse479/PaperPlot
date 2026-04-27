@@ -5,6 +5,8 @@ from __future__ import annotations
 import math
 from typing import Any
 
+from paperplot.plots.legends import apply_legends
+
 
 def render_radar(
     *,
@@ -13,6 +15,10 @@ def render_radar(
     template: dict[str, Any],
     title: str | None = None,
     legend: str | None = None,
+    legend_title: str | None = None,
+    legend_bbox_to_anchor: list[float] | tuple[float, float] | None = None,
+    legend_ncol: int | None = None,
+    extra_legends: list[dict[str, Any]] | None = None,
     spec: dict[str, Any] | None = None,
     **_: Any,
 ) -> None:
@@ -38,4 +44,11 @@ def render_radar(
     if final_title:
         ax.set_title(final_title, y=1.08)
     legend_loc = legend or template.get("defaults", {}).get("legend_loc") or (spec or {}).get("legend", {}).get("loc", "best")
-    ax.legend(loc=legend_loc, bbox_to_anchor=(1.1, 1.05))
+    apply_legends(
+        ax=ax,
+        loc=legend_loc,
+        title=legend_title,
+        bbox_to_anchor=legend_bbox_to_anchor or (1.1, 1.05),
+        ncol=legend_ncol,
+        extra_legends=extra_legends,
+    )

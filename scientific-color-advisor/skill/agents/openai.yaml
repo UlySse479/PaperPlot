@@ -1,0 +1,7 @@
+interface:
+  display_name: "Scientific Color Advisor"
+  short_description: "Scientific figure and PPT color recommendations."
+  default_prompt: "Use $scientific-color-advisor to recommend a scientific plotting or PPT color system."
+
+policy:
+  allow_implicit_invocation: true

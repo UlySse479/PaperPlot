@@ -4,7 +4,9 @@ from __future__ import annotations
 
 from typing import Any
 
+from paperplot.core.color_advisor import resolve_series_color_map
 from paperplot.plots.common import group_xy_by_hue, humanize_label, resolve_series_arg
+from paperplot.plots.legends import apply_legends
 
 
 def render_scatter(
@@ -20,6 +22,9 @@ def render_scatter(
     xlabel: str | None = None,
     ylabel: str | None = None,
     legend: str | None = None,
+    legend_title: str | None = None,
+    legend_bbox_to_anchor: list[float] | tuple[float, float] | None = None,
+    legend_ncol: int | None = None,
     alpha: float | None = None,
     size: float | None = None,
     spec: dict[str, Any] | None = None,
@@ -30,6 +35,7 @@ def render_scatter(
     annotate_points: bool | None = None,
     pareto_frontier: bool | None = None,
     frontier_direction: str | None = None,
+    extra_legends: list[dict[str, Any]] | None = None,
     **_: Any,
 ) -> None:
     final_alpha = alpha if alpha is not None else template.get("defaults", {}).get("alpha", 0.85)
@@ -45,15 +51,36 @@ def render_scatter(
     all_points: list[tuple[Any, Any, Any]] = []
 
     if hue is None:
-        ax.scatter(x or [], y or [], alpha=final_alpha, s=final_size, edgecolors="#222222", linewidths=0.5)
+        color_map = resolve_series_color_map(spec or {}, [y_key or "series"])
+        point_color = color_map.get(y_key or "series")
+        ax.scatter(
+            x or [],
+            y or [],
+            alpha=final_alpha,
+            s=final_size,
+            color=point_color,
+            edgecolors="#222222",
+            linewidths=0.5,
+        )
         if xerr_values is not None or yerr_values is not None:
-            ax.errorbar(x or [], y or [], xerr=xerr_values, yerr=yerr_values, fmt="none", ecolor="#444444", alpha=0.65, capsize=3)
+            ax.errorbar(
+                x or [],
+                y or [],
+                xerr=xerr_values,
+                yerr=yerr_values,
+                fmt="none",
+                ecolor=point_color or "#444444",
+                alpha=0.65,
+                capsize=3,
+            )
         all_points.extend(zip(x or [], y or [], label_values or [None] * len(x or []), strict=False))
     else:
         grouped = group_xy_by_hue(x, y, hue)
         markers = template.get("defaults", {}).get("markers", ["o", "s", "^", "D", "P"])
+        color_map = resolve_series_color_map(spec or {}, list(grouped.keys()))
         for index, (group, series) in enumerate(grouped.items()):
             group_indices = [i for i, group_value in enumerate(hue or []) if group_value == group]
+            series_color = color_map.get(group)
             ax.scatter(
                 series["x"],
                 series["y"],
@@ -61,16 +88,33 @@ def render_scatter(
                 s=final_size,
                 marker=markers[index % len(markers)],
                 label=str(group),
+                color=series_color,
                 edgecolors="#222222",
                 linewidths=0.5,
             )
             if xerr_values is not None or yerr_values is not None:
                 group_xerr = [xerr_values[i] for i in group_indices] if xerr_values is not None else None
                 group_yerr = [yerr_values[i] for i in group_indices] if yerr_values is not None else None
-                ax.errorbar(series["x"], series["y"], xerr=group_xerr, yerr=group_yerr, fmt="none", ecolor="#444444", alpha=0.65, capsize=3)
+                ax.errorbar(
+                    series["x"],
+                    series["y"],
+                    xerr=group_xerr,
+                    yerr=group_yerr,
+                    fmt="none",
+                    ecolor=series_color or "#444444",
+                    alpha=0.65,
+                    capsize=3,
+                )
             group_labels = [label_values[i] for i in group_indices] if label_values is not None else [None] * len(series["x"])
             all_points.extend(zip(series["x"], series["y"], group_labels, strict=False))
-        ax.legend(loc=legend_loc)
+        apply_legends(
+            ax=ax,
+            loc=legend_loc,
+            title=legend_title,
+            bbox_to_anchor=legend_bbox_to_anchor,
+            ncol=legend_ncol,
+            extra_legends=extra_legends,
+        )
 
     if final_annotate_points and label_values is not None:
         for xv, yv, label in all_points:

@@ -85,6 +85,28 @@ paperplot validate-assets examples/assets
 paperplot validate-assets examples/assets --direct
 ```
 
+### Inspect color-advisor output
+
+```bash
+paperplot color-advisor examples/icml_color_advisor.yaml
+```
+
+This prints a structured JSON report with:
+
+* the chosen scientific-color-advisor recommendation
+* the resolved palette
+* the current semantic series-to-color mapping
+* the inferred or configured `series_count`
+* the namespace and persistence path, when configured
+
+Export the report to a file:
+
+```bash
+paperplot color-advisor examples/icml_color_advisor.yaml --export-map artifacts/color-map.json
+```
+
+If the config has a `hue` field, the CLI infers `series_count` from the unique hue labels before scoring the recommendation. This matters for small manuscript figures where two-series color spacing should be judged more strictly than a five-series palette.
+
 ### List registered items
 
 ```bash
@@ -144,6 +166,12 @@ paperplot --json validate-assets .
 paperplot --json list templates
 ```
 
+### Inspect the palette contract for a paper figure
+
+```bash
+paperplot color-advisor examples/icml_color_advisor.yaml --export-map artifacts/color-map.json
+```
+
 ### Render a smoke-test figure set
 
 ```bash
@@ -193,3 +221,9 @@ Prefer:
 * `paperplot validate-assets ...`
 
 The explicit commands are easier to reason about in automation and CI.
+
+## Related References
+
+* [../README.md](../README.md)
+* [COLOR_ADVISOR_cn.md](./COLOR_ADVISOR_cn.md)
+* [OVERRIDES.md](./OVERRIDES.md)

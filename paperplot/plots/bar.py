@@ -4,6 +4,7 @@ from __future__ import annotations
 
 from typing import Any
 
+from paperplot.core.color_advisor import resolve_series_color_map
 from paperplot.plots.annotations import add_significance_annotations, compile_significance_annotations
 from paperplot.plots.common import humanize_label, resolve_series_arg
 
@@ -22,6 +23,7 @@ def render_bar(
     ylabel: str | None = None,
     yerr: Any = None,
     data: Any = None,
+    spec: dict[str, Any] | None = None,
     annotations: list[dict[str, Any]] | None = None,
     significance: list[dict[str, Any]] | None = None,
     **_: Any,
@@ -37,7 +39,17 @@ def render_bar(
     if yerr_values is not None and should_sort:
         yerr_lookup = {xv: err for xv, err in zip(x or [], yerr_values, strict=False)}
         yerr_values = [yerr_lookup[item[0]] for item in items]
-    bars = ax.bar(xs, ys, yerr=yerr_values, capsize=3 if yerr_values is not None else 0, edgecolor="#222222", linewidth=0.8, zorder=3)
+    color_map = resolve_series_color_map(spec or {}, [y_key or "series"])
+    bars = ax.bar(
+        xs,
+        ys,
+        yerr=yerr_values,
+        capsize=3 if yerr_values is not None else 0,
+        color=color_map.get(y_key or "series"),
+        edgecolor="#222222",
+        linewidth=0.8,
+        zorder=3,
+    )
     for bar in bars:
         bar.set_alpha(0.9)
     ax.set_xlabel(xlabel or humanize_label(x_key))

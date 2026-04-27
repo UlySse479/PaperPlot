@@ -4,6 +4,7 @@ from __future__ import annotations
 
 from typing import Any
 
+from paperplot.core.color_advisor import build_heatmap_cmap
 from paperplot.plots.common import humanize_label
 
 
@@ -12,6 +13,7 @@ def render_heatmap(
     ax: Any,
     data: Any,
     template: dict[str, Any],
+    spec: dict[str, Any] | None = None,
     title: str | None = None,
     xlabel: str | None = None,
     ylabel: str | None = None,
@@ -27,7 +29,7 @@ def render_heatmap(
 
     x_labels = data.get("x_labels") if isinstance(data, dict) else None
     y_labels = data.get("y_labels") if isinstance(data, dict) else None
-    final_cmap = cmap or template.get("defaults", {}).get("cmap", "viridis")
+    final_cmap = cmap or build_heatmap_cmap(spec or {}) or template.get("defaults", {}).get("cmap", "viridis")
     final_annotate = annotate if annotate is not None else template.get("defaults", {}).get("annotate", False)
 
     image = ax.imshow(matrix, aspect="auto", cmap=final_cmap)

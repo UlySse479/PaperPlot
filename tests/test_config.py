@@ -41,6 +41,43 @@ def test_dotted_override_updates_nested_config():
     assert spec["axes"]["grid"] is True
 
 
+def test_color_advisor_resolves_line_palette():
+    spec = resolve_figure_spec(
+        template="line.default",
+        color_advisor={
+            "enabled": True,
+            "usage": "manuscript",
+            "tone": "restrained",
+            "series_count": 2,
+        },
+        override={
+            "axes.grid": True,
+        },
+    )
+
+    advisor = spec["palette"]["advisor"]
+    assert advisor["template"]["chart_type"] == "line-plot"
+    assert spec["palette"]["colors"][0] != "#4C78A8"
+    assert len(spec["palette"]["colors"]) >= 4
+    assert advisor["template"]["id"] == "editorial-lines-light"
+
+
+def test_color_advisor_resolves_diverging_heatmap_palette():
+    spec = resolve_figure_spec(
+        template="heatmap.default",
+        color_advisor={
+            "enabled": True,
+            "usage": "manuscript",
+        },
+        override={
+            "template.defaults.cmap": "RdBu",
+        },
+    )
+
+    assert spec["palette"]["advisor"]["template"]["palette_class"] == "diverging"
+    assert len(spec["palette"]["cmap_colors"]) == 9
+
+
 def test_builtin_profiles_are_exposed_from_profiles_package():
     assert set(PROFILES) == {"icml", "neurips", "acl", "cvpr", "emnlp", "nature"}
     assert PROFILES["icml"]["sizes"]["single"] == [3.25, 2.2]
@@ -307,6 +344,42 @@ def test_cli_legacy_validate_still_works(tmp_path):
     )
 
     assert '"templates": ["bar.ablation"]' in result.stdout
+
+
+def test_validate_config_supports_color_advisor(tmp_path):
+    config_path = tmp_path / "advisor-config.yaml"
+    config_path.write_text(
+        "\n".join(
+            [
+                "paper:",
+                "  profile: icml",
+                "  style: academic-muted",
+                "  color_advisor:",
+                "    enabled: true",
+                "    usage: manuscript",
+                "figure:",
+                "  template: line.sota_compare",
+                "  data:",
+                "    epoch: [1, 2, 1, 2]",
+                "    acc: [80, 82, 77, 79]",
+                "    method: [Ours, Ours, Baseline, Baseline]",
+                "  x: epoch",
+                "  y: acc",
+                "  hue: method",
+            ]
+        ),
+        encoding="utf-8",
+    )
+
+    result = subprocess.run(
+        [sys.executable, "-m", "paperplot.cli", "validate-config", str(config_path)],
+        cwd="/root/PaperPlot",
+        capture_output=True,
+        text=True,
+        check=True,
+    )
+
+    assert '"templates": ["line.sota_compare"]' in result.stdout
 
 
 def test_cli_list_and_json_modes():

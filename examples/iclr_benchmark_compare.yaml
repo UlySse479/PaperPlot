@@ -13,4 +13,4 @@ figure:
   hue: model
   ylabel: Score
   title: Cross-Benchmark Comparison
-  output: figures/iclr_benchmark_compare.pdf
+  output: figures/iclr_benchmark_compare.png

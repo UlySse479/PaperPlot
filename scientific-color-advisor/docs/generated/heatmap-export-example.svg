@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="1200" height="720" viewBox="0 0 1200 720" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="heatmapRamp" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0%" stop-color="#000004" />
+<stop offset="13%" stop-color="#180F3D" />
+<stop offset="25%" stop-color="#440F76" />
+<stop offset="38%" stop-color="#721F81" />
+<stop offset="50%" stop-color="#9E2F7F" />
+<stop offset="63%" stop-color="#CD4071" />
+<stop offset="75%" stop-color="#F1605D" />
+<stop offset="88%" stop-color="#FD9A6A" />
+<stop offset="100%" stop-color="#FCFDBF" />
+    </linearGradient>
+  </defs>
+  <rect width="1200" height="720" fill="#111827"/>
+  <rect x="32" y="32" width="1136" height="656" rx="28" fill="#182433"/>
+  <text x="72" y="96" fill="#F8FAFC" font-size="34" font-weight="800">Heatmap Export Snapshot</text>
+  <text x="72" y="136" fill="#B7C7D4" font-size="22" font-weight="500">Generated from the current sequential poster-on-dark export bundle.</text>
+  <rect x="72" y="176" width="1056" height="120" rx="20" fill="#223447" stroke="#314A61" />
+<text x="96" y="212" fill="#F8FAFC" font-size="20" font-weight="700">Selected Template</text>
+  <text x="96" y="242" fill="#F8FAFC" font-size="28" font-weight="800">Magma Dark Heatmap Dark</text>
+  <text x="96" y="274" fill="#A7BCCB" font-size="20" font-weight="500">magma-dark-heatmap-dark</text>
+  <rect x="72" y="324" width="1056" height="120" rx="20" fill="#223447" stroke="#314A61" />
+<text x="96" y="360" fill="#F8FAFC" font-size="20" font-weight="700">Gradient</text>
+  <rect x="96" y="372" width="1008" height="28" rx="14" fill="url(#heatmapRamp)" stroke="#3E5870" />
+  <text x="96" y="428" fill="#D7E2EA" font-size="18" font-weight="700">#000004</text>
+  <text x="600" y="428" fill="#D7E2EA" font-size="18" font-weight="700" text-anchor="middle">#9E2F7F</text>
+  <text x="1104" y="428" fill="#D7E2EA" font-size="18" font-weight="700" text-anchor="end">#FCFDBF</text>
+  <rect x="72" y="472" width="512" height="184" rx="20" fill="#223447" stroke="#314A61" />
+<text x="96" y="508" fill="#F8FAFC" font-size="20" font-weight="700">Export Excerpts</text>
+  <text x="96" y="520" fill="#E6EEF4" font-size="20" font-weight="600" text-anchor="start">matplotlib</text>
+<text x="96" y="552" fill="#E6EEF4" font-size="20" font-weight="600" text-anchor="start">scientific_color_lab[0] = #000004</text>
+<text x="96" y="584" fill="#E6EEF4" font-size="20" font-weight="600" text-anchor="start">scientific_color_lab[4] = #9E2F7F</text>
+<text x="96" y="616" fill="#E6EEF4" font-size="20" font-weight="600" text-anchor="start">scientific_color_lab[8] = #FCFDBF</text>
+  <rect x="616" y="472" width="512" height="184" rx="20" fill="#223447" stroke="#314A61" />
+<text x="640" y="508" fill="#F8FAFC" font-size="20" font-weight="700">CSS Excerpts</text>
+  <text x="640" y="520" fill="#E6EEF4" font-size="20" font-weight="600" text-anchor="start">:root {</text>
+<text x="640" y="552" fill="#E6EEF4" font-size="20" font-weight="600" text-anchor="start">  --magma_dark_heatmap_dark-1: #000004;</text>
+<text x="640" y="584" fill="#E6EEF4" font-size="20" font-weight="600" text-anchor="start">  --magma_dark_heatmap_dark-5: #9E2F7F;</text>
+<text x="640" y="616" fill="#E6EEF4" font-size="20" font-weight="600" text-anchor="start">  --magma_dark_heatmap_dark-9: #FCFDBF;</text>
+<text x="640" y="648" fill="#E6EEF4" font-size="20" font-weight="600" text-anchor="start">}</text>
+</svg>

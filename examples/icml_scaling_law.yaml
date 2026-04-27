@@ -13,7 +13,8 @@ figure:
   hue: run
   xscale: log
   xformatter: scientific
+  legend: upper right
   xlabel: Training Tokens
   ylabel: Validation Loss
   title: Scaling Trend
-  output: figures/icml_scaling_law.pdf
+  output: figures/icml_scaling_law.png

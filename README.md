@@ -107,6 +107,52 @@ Supported config inputs:
 * `.json`
 * `.yaml` / `.yml`
 
+## Scientific Color Advisor
+
+PaperPlot can use the vendored `scientific-color-advisor` catalog to recommend paper-safe palettes automatically and keep semantic labels mapped to the same colors across a whole paper.
+
+Typical use cases:
+
+* automatically pick safer categorical palettes for line, scatter, grouped-bar, and box plots
+* switch heatmaps to more appropriate sequential or diverging ramps
+* keep labels like `Ours`, `Baseline`, and `Ablation` color-stable across separately rendered figures
+* infer `series_count` from the actual figure data so 2-series manuscript plots prefer restrained but still separated colors
+
+Example config:
+
+```yaml
+paper:
+  profile: icml
+  style: academic-muted
+  color_advisor:
+    enabled: true
+    usage: manuscript
+    tone: restrained
+    priorities: [colorblind-safe, grayscale-safe, avoid-red-green]
+    namespace: paper-demo
+    persist_path: color_advisor/paper-colors.json
+    preferred_order: [Ours, Baseline, Ablation]
+    bindings:
+      Ours: primary
+      Baseline: secondary
+
+figure:
+  template: line.sota_compare
+  data:
+    epoch: [1, 2, 3, 1, 2, 3]
+    acc: [74.1, 76.8, 78.3, 71.9, 73.5, 74.8]
+    method: [Ours, Ours, Ours, Baseline, Baseline, Baseline]
+  x: epoch
+  y: acc
+  hue: method
+```
+
+See the full example at [examples/icml_color_advisor.yaml](./examples/icml_color_advisor.yaml). For detailed usage, see:
+
+* [docs/COLOR_ADVISOR_cn.md](./docs/COLOR_ADVISOR_cn.md)
+* [docs/CLI.md](./docs/CLI.md)
+* [docs/OVERRIDES.md](./docs/OVERRIDES.md)
+
 ## External assets
 
 PaperPlot can autoload project-local profile, style, and template assets from files.
@@ -156,6 +202,11 @@ Additional example configs:
 * [acl_benchmark_matrix.yaml](./examples/acl_benchmark_matrix.yaml)
 * [iclr_benchmark_compare.yaml](./examples/iclr_benchmark_compare.yaml)
 * [cvpr_paper_summary.yaml](./examples/cvpr_paper_summary.yaml)
+
+Override guide:
+
+* [Overriding Figures in PaperPlot](./docs/OVERRIDES.md)
+* [Color Advisor Guide (CN)](./docs/COLOR_ADVISOR_cn.md)
 
 ### Award-inspired templates
 
@@ -228,6 +279,7 @@ Key commands:
 * `paperplot assets <path>` loads project-local assets and prints a summary
 * `paperplot validate-config <target>` validates config files without rendering
 * `paperplot validate-assets <target>` validates asset roots or project roots without rendering
+* `paperplot color-advisor <config>` inspects the recommended palette and resolved series-color mapping for a config
 * `paperplot list [profiles|styles|templates|plotters|all]` lists registered items
 
 `paperplot validate <target>` is still supported as a compatibility wrapper, but the explicit commands are preferred.
@@ -330,5 +382,5 @@ Top-level exports currently include:
   * `use_style`
   * `managed_figure`
 
-See [docs/GALLERY.md](./docs/GALLERY.md) for the gallery contract and refresh commands.
 See [docs/CLI.md](./docs/CLI.md) for the full CLI reference and CI-oriented examples.
+See [docs/OVERRIDES.md](./docs/OVERRIDES.md) for override mechanics and [docs/COLOR_ADVISOR_cn.md](./docs/COLOR_ADVISOR_cn.md) for advisor-backed palette workflows.

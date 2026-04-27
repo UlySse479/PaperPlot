@@ -1,0 +1,1304 @@
+[
+  {
+    "id": "editorial-lines-light",
+    "name": "Editorial Lines",
+    "description": "Restrained line-plot palette for manuscript figures.",
+    "paletteClass": "qualitative",
+    "chartType": "line-plot",
+    "structure": "low-saturation-editorial",
+    "size": 5,
+    "tone": "Editorial Minimal",
+    "academicUsage": "manuscript",
+    "tags": [
+      "editorial",
+      "line",
+      "light"
+    ],
+    "baseHex": "#2D5673",
+    "hexes": [
+      "#2D5673",
+      "#66859C",
+      "#B9835D",
+      "#637C64",
+      "#A7ACB2"
+    ],
+    "backgroundMode": "light"
+  },
+  {
+    "id": "editorial-lines-dark",
+    "name": "Editorial Lines Dark",
+    "description": "Restrained line-plot palette for manuscript figures. Adapted for darker surrounding UI and presentation backgrounds.",
+    "paletteClass": "qualitative",
+    "chartType": "line-plot",
+    "structure": "low-saturation-editorial",
+    "size": 5,
+    "tone": "Editorial Minimal",
+    "academicUsage": "manuscript",
+    "tags": [
+      "editorial",
+      "line",
+      "dark"
+    ],
+    "baseHex": "#2D5673",
+    "hexes": [
+      "#2D5673",
+      "#66859C",
+      "#B9835D",
+      "#637C64",
+      "#A7ACB2"
+    ],
+    "backgroundMode": "dark"
+  },
+  {
+    "id": "balanced-scatter-light",
+    "name": "Balanced Scatter",
+    "description": "Balanced cool-warm scatter palette for screen-first academic graphics.",
+    "paletteClass": "qualitative",
+    "chartType": "scatter-plot",
+    "structure": "cool-warm-balanced",
+    "size": 7,
+    "tone": "Publication Clean",
+    "academicUsage": "online document",
+    "tags": [
+      "scatter",
+      "balanced",
+      "light"
+    ],
+    "baseHex": "#2C6A8E",
+    "hexes": [
+      "#2C6A8E",
+      "#78A1BC",
+      "#C88D5A",
+      "#658A62",
+      "#915E77",
+      "#A6B2BB",
+      "#E6DDD3"
+    ],
+    "backgroundMode": "light"
+  },
+  {
+    "id": "balanced-scatter-dark",
+    "name": "Balanced Scatter Dark",
+    "description": "Balanced cool-warm scatter palette for screen-first academic graphics. Adapted for darker surrounding UI and presentation backgrounds.",
+    "paletteClass": "qualitative",
+    "chartType": "scatter-plot",
+    "structure": "cool-warm-balanced",
+    "size": 7,
+    "tone": "Publication Clean",
+    "academicUsage": "online document",
+    "tags": [
+      "scatter",
+      "balanced",
+      "dark"
+    ],
+    "baseHex": "#2C6A8E",
+    "hexes": [
+      "#2C6A8E",
+      "#78A1BC",
+      "#C88D5A",
+      "#658A62",
+      "#915E77",
+      "#A6B2BB",
+      "#E6DDD3"
+    ],
+    "backgroundMode": "dark"
+  },
+  {
+    "id": "poster-bars-light",
+    "name": "Poster Bars",
+    "description": "Stronger categorical set for poster bar charts.",
+    "paletteClass": "qualitative",
+    "chartType": "bar-chart",
+    "structure": "high-contrast-categorical",
+    "size": 7,
+    "tone": "Presentation Strong",
+    "academicUsage": "poster",
+    "tags": [
+      "bar",
+      "poster",
+      "high-contrast",
+      "presentation-strong",
+      "light"
+    ],
+    "baseHex": "#1F5D8A",
+    "hexes": [
+      "#1F5D8A",
+      "#7E985D",
+      "#B8754C",
+      "#7E4E70",
+      "#C4A14A",
+      "#5D7C8C",
+      "#A9B2B3"
+    ],
+    "backgroundMode": "light"
+  },
+  {
+    "id": "poster-bars-dark",
+    "name": "Poster Bars Dark",
+    "description": "Stronger categorical set for poster bar charts. Adapted for darker surrounding UI and presentation backgrounds.",
+    "paletteClass": "qualitative",
+    "chartType": "bar-chart",
+    "structure": "high-contrast-categorical",
+    "size": 7,
+    "tone": "Presentation Strong",
+    "academicUsage": "poster",
+    "tags": [
+      "bar",
+      "poster",
+      "high-contrast",
+      "presentation-strong",
+      "dark"
+    ],
+    "baseHex": "#1F5D8A",
+    "hexes": [
+      "#1F5D8A",
+      "#7E985D",
+      "#B8754C",
+      "#7E4E70",
+      "#C4A14A",
+      "#5D7C8C",
+      "#A9B2B3"
+    ],
+    "backgroundMode": "dark"
+  },
+  {
+    "id": "quiet-heatmap-light",
+    "name": "Quiet Heatmap",
+    "description": "Monotonic sequential heatmap with restrained lightness progression for quantitative fields.",
+    "paletteClass": "sequential",
+    "chartType": "heatmap",
+    "structure": "sequential-gradient",
+    "size": 9,
+    "tone": "Scientific Neutral",
+    "academicUsage": "manuscript",
+    "tags": [
+      "heatmap",
+      "sequential",
+      "ordered-ramp",
+      "heatmap-safe",
+      "light"
+    ],
+    "baseHex": "#315D88",
+    "hexes": [
+      "#EEF2F4",
+      "#D6E0E8",
+      "#BDD0DB",
+      "#9FB8C8",
+      "#7F9FB3",
+      "#62879D",
+      "#486F86",
+      "#335869",
+      "#223D4D"
+    ],
+    "backgroundMode": "light"
+  },
+  {
+    "id": "quiet-heatmap-dark",
+    "name": "Quiet Heatmap Dark",
+    "description": "Monotonic sequential heatmap with restrained lightness progression for quantitative fields. Adapted for darker surrounding UI and presentation backgrounds.",
+    "paletteClass": "sequential",
+    "chartType": "heatmap",
+    "structure": "sequential-gradient",
+    "size": 9,
+    "tone": "Scientific Neutral",
+    "academicUsage": "manuscript",
+    "tags": [
+      "heatmap",
+      "sequential",
+      "ordered-ramp",
+      "heatmap-safe",
+      "dark"
+    ],
+    "baseHex": "#315D88",
+    "hexes": [
+      "#EEF2F4",
+      "#D6E0E8",
+      "#BDD0DB",
+      "#9FB8C8",
+      "#7F9FB3",
+      "#62879D",
+      "#486F86",
+      "#335869",
+      "#223D4D"
+    ],
+    "backgroundMode": "dark"
+  },
+  {
+    "id": "quiet-diverging-light",
+    "name": "Quiet Diverging",
+    "description": "Balanced diverging map with a quiet midpoint for centered scientific data.",
+    "paletteClass": "diverging",
+    "chartType": "heatmap",
+    "structure": "diverging-gradient",
+    "size": 9,
+    "tone": "Scientific Neutral",
+    "academicUsage": "manuscript",
+    "tags": [
+      "heatmap",
+      "diverging",
+      "structured-midpoint",
+      "heatmap-safe",
+      "light"
+    ],
+    "baseHex": "#A65E4B",
+    "hexes": [
+      "#355B89",
+      "#5F7E9D",
+      "#8AA0B1",
+      "#C2D0DA",
+      "#F2F1EE",
+      "#E2D0C4",
+      "#D0AD93",
+      "#BC8868",
+      "#9B654E"
+    ],
+    "backgroundMode": "light"
+  },
+  {
+    "id": "quiet-diverging-dark",
+    "name": "Quiet Diverging Dark",
+    "description": "Balanced diverging map with a quiet midpoint for centered scientific data. Adapted for darker surrounding UI and presentation backgrounds.",
+    "paletteClass": "diverging",
+    "chartType": "heatmap",
+    "structure": "diverging-gradient",
+    "size": 9,
+    "tone": "Scientific Neutral",
+    "academicUsage": "manuscript",
+    "tags": [
+      "heatmap",
+      "diverging",
+      "structured-midpoint",
+      "heatmap-safe",
+      "dark"
+    ],
+    "baseHex": "#A65E4B",
+    "hexes": [
+      "#355B89",
+      "#5F7E9D",
+      "#8AA0B1",
+      "#C2D0DA",
+      "#F2F1EE",
+      "#E2D0C4",
+      "#D0AD93",
+      "#BC8868",
+      "#9B654E"
+    ],
+    "backgroundMode": "dark"
+  },
+  {
+    "id": "phase-loop-light",
+    "name": "Phase Loop",
+    "description": "Closed-loop cyclic palette for phase, orientation, or angular data.",
+    "paletteClass": "cyclic",
+    "chartType": "heatmap",
+    "structure": "cyclic-gradient",
+    "size": 9,
+    "tone": "Nature-like",
+    "academicUsage": "online document",
+    "tags": [
+      "cyclic",
+      "phase",
+      "closed-loop",
+      "light"
+    ],
+    "baseHex": "#3F688C",
+    "hexes": [
+      "#3F688C",
+      "#4B8A8B",
+      "#6A9B71",
+      "#9A9B58",
+      "#B97C57",
+      "#B06168",
+      "#8F5F82",
+      "#5F6491",
+      "#3F688C"
+    ],
+    "backgroundMode": "light"
+  },
+  {
+    "id": "phase-loop-dark",
+    "name": "Phase Loop Dark",
+    "description": "Closed-loop cyclic palette for phase, orientation, or angular data. Adapted for darker surrounding UI and presentation backgrounds.",
+    "paletteClass": "cyclic",
+    "chartType": "heatmap",
+    "structure": "cyclic-gradient",
+    "size": 9,
+    "tone": "Nature-like",
+    "academicUsage": "online document",
+    "tags": [
+      "cyclic",
+      "phase",
+      "closed-loop",
+      "dark"
+    ],
+    "baseHex": "#3F688C",
+    "hexes": [
+      "#3F688C",
+      "#4B8A8B",
+      "#6A9B71",
+      "#9A9B58",
+      "#B97C57",
+      "#B06168",
+      "#8F5F82",
+      "#5F6491",
+      "#3F688C"
+    ],
+    "backgroundMode": "dark"
+  },
+  {
+    "id": "mechanism-clean-light",
+    "name": "Mechanism Clean",
+    "description": "Mechanism-figure system with scaffold neutrals and controlled accents.",
+    "paletteClass": "concept",
+    "chartType": "concept-figure",
+    "structure": "low-saturation-editorial",
+    "size": 7,
+    "tone": "Publication Clean",
+    "academicUsage": "manuscript",
+    "tags": [
+      "concept",
+      "mechanism",
+      "restrained-editorial",
+      "light"
+    ],
+    "baseHex": "#365F7D",
+    "hexes": [
+      "#1E2327",
+      "#5A636B",
+      "#B6BEC2",
+      "#E8E4DE",
+      "#365F7D",
+      "#A57458",
+      "#6D8A6C"
+    ],
+    "backgroundMode": "light"
+  },
+  {
+    "id": "mechanism-clean-dark",
+    "name": "Mechanism Clean Dark",
+    "description": "Mechanism-figure system with scaffold neutrals and controlled accents. Adapted for darker surrounding UI and presentation backgrounds.",
+    "paletteClass": "concept",
+    "chartType": "concept-figure",
+    "structure": "low-saturation-editorial",
+    "size": 7,
+    "tone": "Publication Clean",
+    "academicUsage": "manuscript",
+    "tags": [
+      "concept",
+      "mechanism",
+      "restrained-editorial",
+      "dark"
+    ],
+    "baseHex": "#365F7D",
+    "hexes": [
+      "#1E2327",
+      "#5A636B",
+      "#B6BEC2",
+      "#E8E4DE",
+      "#365F7D",
+      "#A57458",
+      "#6D8A6C"
+    ],
+    "backgroundMode": "dark"
+  },
+  {
+    "id": "slide-minimal-light",
+    "name": "Slide Minimal",
+    "description": "Low-noise palette for course slides and online decks.",
+    "paletteClass": "qualitative",
+    "chartType": "presentation-slide",
+    "structure": "low-saturation-editorial",
+    "size": 5,
+    "tone": "Editorial Minimal",
+    "academicUsage": "course slides",
+    "tags": [
+      "slides",
+      "minimal",
+      "light"
+    ],
+    "baseHex": "#274F69",
+    "hexes": [
+      "#274F69",
+      "#6D8192",
+      "#AF845F",
+      "#7A8B73",
+      "#D9D2CA"
+    ],
+    "backgroundMode": "light"
+  },
+  {
+    "id": "slide-minimal-dark",
+    "name": "Slide Minimal Dark",
+    "description": "Low-noise palette for course slides and online decks. Adapted for darker surrounding UI and presentation backgrounds.",
+    "paletteClass": "qualitative",
+    "chartType": "presentation-slide",
+    "structure": "low-saturation-editorial",
+    "size": 5,
+    "tone": "Editorial Minimal",
+    "academicUsage": "course slides",
+    "tags": [
+      "slides",
+      "minimal",
+      "dark"
+    ],
+    "baseHex": "#274F69",
+    "hexes": [
+      "#274F69",
+      "#6D8192",
+      "#AF845F",
+      "#7A8B73",
+      "#D9D2CA"
+    ],
+    "backgroundMode": "dark"
+  },
+  {
+    "id": "nature-lines-light",
+    "name": "Nature Lines",
+    "description": "Nature-like line set with muted greens and blue-grays.",
+    "paletteClass": "qualitative",
+    "chartType": "line-plot",
+    "structure": "cool-warm-balanced",
+    "size": 7,
+    "tone": "Nature-like",
+    "academicUsage": "lab meeting",
+    "tags": [
+      "line",
+      "nature",
+      "light"
+    ],
+    "baseHex": "#345F7F",
+    "hexes": [
+      "#345F7F",
+      "#658A7C",
+      "#A47E57",
+      "#7E6A96",
+      "#9E6C6A",
+      "#9EAEB4",
+      "#E7E0D5"
+    ],
+    "backgroundMode": "light"
+  },
+  {
+    "id": "nature-lines-dark",
+    "name": "Nature Lines Dark",
+    "description": "Nature-like line set with muted greens and blue-grays. Adapted for darker surrounding UI and presentation backgrounds.",
+    "paletteClass": "qualitative",
+    "chartType": "line-plot",
+    "structure": "cool-warm-balanced",
+    "size": 7,
+    "tone": "Nature-like",
+    "academicUsage": "lab meeting",
+    "tags": [
+      "line",
+      "nature",
+      "dark"
+    ],
+    "baseHex": "#345F7F",
+    "hexes": [
+      "#345F7F",
+      "#658A7C",
+      "#A47E57",
+      "#7E6A96",
+      "#9E6C6A",
+      "#9EAEB4",
+      "#E7E0D5"
+    ],
+    "backgroundMode": "dark"
+  },
+  {
+    "id": "clean-bars-light",
+    "name": "Clean Bars",
+    "description": "Neutral-forward categorical system for bar charts.",
+    "paletteClass": "qualitative",
+    "chartType": "bar-chart",
+    "structure": "monochromatic",
+    "size": 5,
+    "tone": "Scientific Neutral",
+    "academicUsage": "online document",
+    "tags": [
+      "bar",
+      "neutral",
+      "light"
+    ],
+    "baseHex": "#406987",
+    "hexes": [
+      "#406987",
+      "#5C7E95",
+      "#7893A2",
+      "#A2B2B8",
+      "#DCE1E1"
+    ],
+    "backgroundMode": "light"
+  },
+  {
+    "id": "clean-bars-dark",
+    "name": "Clean Bars Dark",
+    "description": "Neutral-forward categorical system for bar charts. Adapted for darker surrounding UI and presentation backgrounds.",
+    "paletteClass": "qualitative",
+    "chartType": "bar-chart",
+    "structure": "monochromatic",
+    "size": 5,
+    "tone": "Scientific Neutral",
+    "academicUsage": "online document",
+    "tags": [
+      "bar",
+      "neutral",
+      "dark"
+    ],
+    "baseHex": "#406987",
+    "hexes": [
+      "#406987",
+      "#5C7E95",
+      "#7893A2",
+      "#A2B2B8",
+      "#DCE1E1"
+    ],
+    "backgroundMode": "dark"
+  },
+  {
+    "id": "editorial-seq-warm-light",
+    "name": "Editorial Warm Ramp",
+    "description": "Warm sequential ramp with stable lightness ordering for editorial quantitative graphics.",
+    "paletteClass": "sequential",
+    "chartType": "heatmap",
+    "structure": "sequential-gradient",
+    "size": 9,
+    "tone": "Editorial Minimal",
+    "academicUsage": "online document",
+    "tags": [
+      "sequential",
+      "warm",
+      "ordered-ramp",
+      "light"
+    ],
+    "baseHex": "#B47654",
+    "hexes": [
+      "#F5F1ED",
+      "#E8D8C9",
+      "#DABFA6",
+      "#CCA37F",
+      "#BE8A63",
+      "#A77352",
+      "#875C42",
+      "#684535",
+      "#473028"
+    ],
+    "backgroundMode": "light"
+  },
+  {
+    "id": "editorial-seq-warm-dark",
+    "name": "Editorial Warm Ramp Dark",
+    "description": "Warm sequential ramp with stable lightness ordering for editorial quantitative graphics. Adapted for darker surrounding UI and presentation backgrounds.",
+    "paletteClass": "sequential",
+    "chartType": "heatmap",
+    "structure": "sequential-gradient",
+    "size": 9,
+    "tone": "Editorial Minimal",
+    "academicUsage": "online document",
+    "tags": [
+      "sequential",
+      "warm",
+      "ordered-ramp",
+      "dark"
+    ],
+    "baseHex": "#B47654",
+    "hexes": [
+      "#F5F1ED",
+      "#E8D8C9",
+      "#DABFA6",
+      "#CCA37F",
+      "#BE8A63",
+      "#A77352",
+      "#875C42",
+      "#684535",
+      "#473028"
+    ],
+    "backgroundMode": "dark"
+  },
+  {
+    "id": "poster-diverging-light",
+    "name": "Poster Diverging",
+    "description": "Higher-contrast diverging ramp with a readable midpoint for posters and talks.",
+    "paletteClass": "diverging",
+    "chartType": "heatmap",
+    "structure": "diverging-gradient",
+    "size": 9,
+    "tone": "Presentation Strong",
+    "academicUsage": "poster",
+    "tags": [
+      "diverging",
+      "poster",
+      "structured-midpoint",
+      "high-contrast",
+      "presentation-strong",
+      "light"
+    ],
+    "baseHex": "#8B534A",
+    "hexes": [
+      "#274B7C",
+      "#5474A2",
+      "#8EA8C3",
+      "#D0DBE8",
+      "#F5F2EE",
+      "#E7CFC4",
+      "#D2A491",
+      "#B57661",
+      "#8B534A"
+    ],
+    "backgroundMode": "light"
+  },
+  {
+    "id": "poster-diverging-dark",
+    "name": "Poster Diverging Dark",
+    "description": "Higher-contrast diverging ramp with a readable midpoint for posters and talks. Adapted for darker surrounding UI and presentation backgrounds.",
+    "paletteClass": "diverging",
+    "chartType": "heatmap",
+    "structure": "diverging-gradient",
+    "size": 9,
+    "tone": "Presentation Strong",
+    "academicUsage": "poster",
+    "tags": [
+      "diverging",
+      "poster",
+      "structured-midpoint",
+      "high-contrast",
+      "presentation-strong",
+      "dark"
+    ],
+    "baseHex": "#8B534A",
+    "hexes": [
+      "#274B7C",
+      "#5474A2",
+      "#8EA8C3",
+      "#D0DBE8",
+      "#F5F2EE",
+      "#E7CFC4",
+      "#D2A491",
+      "#B57661",
+      "#8B534A"
+    ],
+    "backgroundMode": "dark"
+  },
+  {
+    "id": "concept-neutrals-light",
+    "name": "Concept Neutrals",
+    "description": "Neutral-led concept figure palette with one cool and one warm counterpoint.",
+    "paletteClass": "concept",
+    "chartType": "concept-figure",
+    "structure": "cool-warm-balanced",
+    "size": 7,
+    "tone": "Scientific Neutral",
+    "academicUsage": "manuscript",
+    "tags": [
+      "concept",
+      "neutral",
+      "restrained-editorial",
+      "light"
+    ],
+    "baseHex": "#456885",
+    "hexes": [
+      "#111416",
+      "#454F55",
+      "#98A5AA",
+      "#ECE9E3",
+      "#456885",
+      "#A8735B",
+      "#7B8F70"
+    ],
+    "backgroundMode": "light"
+  },
+  {
+    "id": "concept-neutrals-dark",
+    "name": "Concept Neutrals Dark",
+    "description": "Neutral-led concept figure palette with one cool and one warm counterpoint. Adapted for darker surrounding UI and presentation backgrounds.",
+    "paletteClass": "concept",
+    "chartType": "concept-figure",
+    "structure": "cool-warm-balanced",
+    "size": 7,
+    "tone": "Scientific Neutral",
+    "academicUsage": "manuscript",
+    "tags": [
+      "concept",
+      "neutral",
+      "restrained-editorial",
+      "dark"
+    ],
+    "baseHex": "#456885",
+    "hexes": [
+      "#111416",
+      "#454F55",
+      "#98A5AA",
+      "#ECE9E3",
+      "#456885",
+      "#A8735B",
+      "#7B8F70"
+    ],
+    "backgroundMode": "dark"
+  },
+  {
+    "id": "scatter-strong-light",
+    "name": "Scatter Strong",
+    "description": "Higher-separation set for dense scatter plots.",
+    "paletteClass": "qualitative",
+    "chartType": "scatter-plot",
+    "structure": "high-contrast-categorical",
+    "size": 9,
+    "tone": "Presentation Strong",
+    "academicUsage": "lab meeting",
+    "tags": [
+      "scatter",
+      "strong",
+      "high-contrast",
+      "dense-scatter-safe",
+      "light"
+    ],
+    "baseHex": "#225E88",
+    "hexes": [
+      "#225E88",
+      "#4E7E54",
+      "#B17449",
+      "#6C5C92",
+      "#AA575D",
+      "#B7953E",
+      "#5B7E90",
+      "#7B6A56",
+      "#A9B4B6"
+    ],
+    "backgroundMode": "light"
+  },
+  {
+    "id": "scatter-strong-dark",
+    "name": "Scatter Strong Dark",
+    "description": "Higher-separation set for dense scatter plots. Adapted for darker surrounding UI and presentation backgrounds.",
+    "paletteClass": "qualitative",
+    "chartType": "scatter-plot",
+    "structure": "high-contrast-categorical",
+    "size": 9,
+    "tone": "Presentation Strong",
+    "academicUsage": "lab meeting",
+    "tags": [
+      "scatter",
+      "strong",
+      "high-contrast",
+      "dense-scatter-safe",
+      "dark"
+    ],
+    "baseHex": "#225E88",
+    "hexes": [
+      "#225E88",
+      "#4E7E54",
+      "#B17449",
+      "#6C5C92",
+      "#AA575D",
+      "#B7953E",
+      "#5B7E90",
+      "#7B6A56",
+      "#A9B4B6"
+    ],
+    "backgroundMode": "dark"
+  },
+  {
+    "id": "manuscript-cool-light",
+    "name": "Manuscript Cool",
+    "description": "Cool manuscript-safe template with restrained contrasts.",
+    "paletteClass": "qualitative",
+    "chartType": "line-plot",
+    "structure": "monochromatic",
+    "size": 5,
+    "tone": "Publication Clean",
+    "academicUsage": "manuscript",
+    "tags": [
+      "line",
+      "cool",
+      "light"
+    ],
+    "baseHex": "#2F5A78",
+    "hexes": [
+      "#2F5A78",
+      "#55738A",
+      "#7A8C9D",
+      "#AAB8BF",
+      "#E2E7E7"
+    ],
+    "backgroundMode": "light"
+  },
+  {
+    "id": "manuscript-cool-dark",
+    "name": "Manuscript Cool Dark",
+    "description": "Cool manuscript-safe template with restrained contrasts. Adapted for darker surrounding UI and presentation backgrounds.",
+    "paletteClass": "qualitative",
+    "chartType": "line-plot",
+    "structure": "monochromatic",
+    "size": 5,
+    "tone": "Publication Clean",
+    "academicUsage": "manuscript",
+    "tags": [
+      "line",
+      "cool",
+      "dark"
+    ],
+    "baseHex": "#2F5A78",
+    "hexes": [
+      "#2F5A78",
+      "#55738A",
+      "#7A8C9D",
+      "#AAB8BF",
+      "#E2E7E7"
+    ],
+    "backgroundMode": "dark"
+  },
+  {
+    "id": "wong-safe-categorical-light",
+    "name": "Wong Safe Categorical",
+    "description": "Colorblind-safer categorical set with strong separation for figure legends and multi-series charts.",
+    "paletteClass": "qualitative",
+    "chartType": "line-plot",
+    "structure": "high-contrast-categorical",
+    "size": 5,
+    "tone": "Publication Clean",
+    "academicUsage": "manuscript",
+    "tags": [
+      "high-contrast",
+      "colorblind-safer",
+      "thin-line-safe",
+      "light"
+    ],
+    "baseHex": "#0072B2",
+    "hexes": [
+      "#0072B2",
+      "#E69F00",
+      "#009E73",
+      "#CC79A7",
+      "#D55E00"
+    ],
+    "backgroundMode": "light"
+  },
+  {
+    "id": "wong-safe-categorical-dark",
+    "name": "Wong Safe Categorical Dark",
+    "description": "Colorblind-safer categorical set with strong separation for figure legends and multi-series charts. Adapted for darker surrounding UI and presentation backgrounds.",
+    "paletteClass": "qualitative",
+    "chartType": "line-plot",
+    "structure": "high-contrast-categorical",
+    "size": 5,
+    "tone": "Publication Clean",
+    "academicUsage": "manuscript",
+    "tags": [
+      "high-contrast",
+      "colorblind-safer",
+      "thin-line-safe",
+      "dark"
+    ],
+    "baseHex": "#0072B2",
+    "hexes": [
+      "#0072B2",
+      "#E69F00",
+      "#009E73",
+      "#CC79A7",
+      "#D55E00"
+    ],
+    "backgroundMode": "dark"
+  },
+  {
+    "id": "economist-strong-lines-light",
+    "name": "Economist Strong Lines",
+    "description": "High-contrast line-plot system that keeps thin traces readable on editorial light backgrounds.",
+    "paletteClass": "qualitative",
+    "chartType": "line-plot",
+    "structure": "high-contrast-categorical",
+    "size": 5,
+    "tone": "Publication Clean",
+    "academicUsage": "online document",
+    "tags": [
+      "high-contrast",
+      "thin-line-safe",
+      "editorial-strong",
+      "light"
+    ],
+    "baseHex": "#206095",
+    "hexes": [
+      "#206095",
+      "#A11D33",
+      "#118C7E",
+      "#E69F00",
+      "#5B6770"
+    ],
+    "backgroundMode": "light"
+  },
+  {
+    "id": "economist-strong-lines-dark",
+    "name": "Economist Strong Lines Dark",
+    "description": "High-contrast line-plot system that keeps thin traces readable on editorial light backgrounds. Adapted for darker surrounding UI and presentation backgrounds.",
+    "paletteClass": "qualitative",
+    "chartType": "line-plot",
+    "structure": "high-contrast-categorical",
+    "size": 5,
+    "tone": "Publication Clean",
+    "academicUsage": "online document",
+    "tags": [
+      "high-contrast",
+      "thin-line-safe",
+      "editorial-strong",
+      "dark"
+    ],
+    "baseHex": "#206095",
+    "hexes": [
+      "#206095",
+      "#A11D33",
+      "#118C7E",
+      "#E69F00",
+      "#5B6770"
+    ],
+    "backgroundMode": "dark"
+  },
+  {
+    "id": "dense-scatter-contrast-light",
+    "name": "Dense Scatter Contrast",
+    "description": "High-separation palette for dense scatter plots where clusters need to hold together without blur.",
+    "paletteClass": "qualitative",
+    "chartType": "scatter-plot",
+    "structure": "high-contrast-categorical",
+    "size": 7,
+    "tone": "Presentation Strong",
+    "academicUsage": "lab meeting",
+    "tags": [
+      "high-contrast",
+      "dense-scatter-safe",
+      "presentation-strong",
+      "light"
+    ],
+    "baseHex": "#0072B2",
+    "hexes": [
+      "#0072B2",
+      "#D55E00",
+      "#009E73",
+      "#CC79A7",
+      "#E69F00",
+      "#56B4E9",
+      "#6F4E7C"
+    ],
+    "backgroundMode": "light"
+  },
+  {
+    "id": "dense-scatter-contrast-dark",
+    "name": "Dense Scatter Contrast Dark",
+    "description": "High-separation palette for dense scatter plots where clusters need to hold together without blur. Adapted for darker surrounding UI and presentation backgrounds.",
+    "paletteClass": "qualitative",
+    "chartType": "scatter-plot",
+    "structure": "high-contrast-categorical",
+    "size": 7,
+    "tone": "Presentation Strong",
+    "academicUsage": "lab meeting",
+    "tags": [
+      "high-contrast",
+      "dense-scatter-safe",
+      "presentation-strong",
+      "dark"
+    ],
+    "baseHex": "#0072B2",
+    "hexes": [
+      "#0072B2",
+      "#D55E00",
+      "#009E73",
+      "#CC79A7",
+      "#E69F00",
+      "#56B4E9",
+      "#6F4E7C"
+    ],
+    "backgroundMode": "dark"
+  },
+  {
+    "id": "high-contrast-bars-light",
+    "name": "High Contrast Bars",
+    "description": "Bar-chart palette with broad perceptual spacing and dark anchors for fast categorical reading.",
+    "paletteClass": "qualitative",
+    "chartType": "bar-chart",
+    "structure": "high-contrast-categorical",
+    "size": 7,
+    "tone": "Presentation Strong",
+    "academicUsage": "poster",
+    "tags": [
+      "high-contrast",
+      "presentation-strong",
+      "bar",
+      "light"
+    ],
+    "baseHex": "#004488",
+    "hexes": [
+      "#004488",
+      "#DDAA33",
+      "#BB5566",
+      "#882255",
+      "#66CCEE",
+      "#332288",
+      "#999933"
+    ],
+    "backgroundMode": "light"
+  },
+  {
+    "id": "high-contrast-bars-dark",
+    "name": "High Contrast Bars Dark",
+    "description": "Bar-chart palette with broad perceptual spacing and dark anchors for fast categorical reading. Adapted for darker surrounding UI and presentation backgrounds.",
+    "paletteClass": "qualitative",
+    "chartType": "bar-chart",
+    "structure": "high-contrast-categorical",
+    "size": 7,
+    "tone": "Presentation Strong",
+    "academicUsage": "poster",
+    "tags": [
+      "high-contrast",
+      "presentation-strong",
+      "bar",
+      "dark"
+    ],
+    "baseHex": "#004488",
+    "hexes": [
+      "#004488",
+      "#DDAA33",
+      "#BB5566",
+      "#882255",
+      "#66CCEE",
+      "#332288",
+      "#999933"
+    ],
+    "backgroundMode": "dark"
+  },
+  {
+    "id": "magma-screen-sequential-light",
+    "name": "Magma Screen Sequential",
+    "description": "Screen-first sequential heatmap inspired by magma-like ordering, rebuilt for publication-safe contrast.",
+    "paletteClass": "sequential",
+    "chartType": "heatmap",
+    "structure": "sequential-gradient",
+    "size": 9,
+    "tone": "Publication Clean",
+    "academicUsage": "online document",
+    "tags": [
+      "high-contrast",
+      "heatmap-safe",
+      "ordered-ramp",
+      "light"
+    ],
+    "baseHex": "#B53679",
+    "hexes": [
+      "#FCFDBF",
+      "#FECF92",
+      "#FE9F6D",
+      "#F1605D",
+      "#CD4071",
+      "#9E2F7F",
+      "#6F1D80",
+      "#3B0F70",
+      "#000004"
+    ],
+    "backgroundMode": "light"
+  },
+  {
+    "id": "magma-screen-sequential-dark",
+    "name": "Magma Screen Sequential Dark",
+    "description": "Screen-first sequential heatmap inspired by magma-like ordering, rebuilt for publication-safe contrast. Adapted for darker surrounding UI and presentation backgrounds.",
+    "paletteClass": "sequential",
+    "chartType": "heatmap",
+    "structure": "sequential-gradient",
+    "size": 9,
+    "tone": "Publication Clean",
+    "academicUsage": "online document",
+    "tags": [
+      "high-contrast",
+      "heatmap-safe",
+      "ordered-ramp",
+      "dark"
+    ],
+    "baseHex": "#B53679",
+    "hexes": [
+      "#FCFDBF",
+      "#FECF92",
+      "#FE9F6D",
+      "#F1605D",
+      "#CD4071",
+      "#9E2F7F",
+      "#6F1D80",
+      "#3B0F70",
+      "#000004"
+    ],
+    "backgroundMode": "dark"
+  },
+  {
+    "id": "magma-dark-heatmap-light",
+    "name": "Magma Dark Heatmap",
+    "description": "High-contrast dark-background heatmap with continuous lightness ordering for talks and dashboards.",
+    "paletteClass": "sequential",
+    "chartType": "heatmap",
+    "structure": "sequential-gradient",
+    "size": 9,
+    "tone": "Presentation Strong",
+    "academicUsage": "poster",
+    "tags": [
+      "high-contrast",
+      "heatmap-safe",
+      "dark-bg-heatmap",
+      "ordered-ramp",
+      "light"
+    ],
+    "baseHex": "#721F81",
+    "hexes": [
+      "#000004",
+      "#180F3D",
+      "#440F76",
+      "#721F81",
+      "#9E2F7F",
+      "#CD4071",
+      "#F1605D",
+      "#FD9A6A",
+      "#FCFDBF"
+    ],
+    "backgroundMode": "light"
+  },
+  {
+    "id": "magma-dark-heatmap-dark",
+    "name": "Magma Dark Heatmap Dark",
+    "description": "High-contrast dark-background heatmap with continuous lightness ordering for talks and dashboards. Adapted for darker surrounding UI and presentation backgrounds.",
+    "paletteClass": "sequential",
+    "chartType": "heatmap",
+    "structure": "sequential-gradient",
+    "size": 9,
+    "tone": "Presentation Strong",
+    "academicUsage": "poster",
+    "tags": [
+      "high-contrast",
+      "heatmap-safe",
+      "dark-bg-heatmap",
+      "ordered-ramp",
+      "dark"
+    ],
+    "baseHex": "#721F81",
+    "hexes": [
+      "#000004",
+      "#180F3D",
+      "#440F76",
+      "#721F81",
+      "#9E2F7F",
+      "#CD4071",
+      "#F1605D",
+      "#FD9A6A",
+      "#FCFDBF"
+    ],
+    "backgroundMode": "dark"
+  },
+  {
+    "id": "editorial-diverging-strong-light",
+    "name": "Editorial Diverging Strong",
+    "description": "Structured blue-to-amber diverging map with a quiet midpoint for centered quantitative comparisons.",
+    "paletteClass": "diverging",
+    "chartType": "heatmap",
+    "structure": "diverging-gradient",
+    "size": 9,
+    "tone": "Publication Clean",
+    "academicUsage": "manuscript",
+    "tags": [
+      "high-contrast",
+      "heatmap-safe",
+      "structured-midpoint",
+      "light"
+    ],
+    "baseHex": "#3B6C9E",
+    "hexes": [
+      "#123B6D",
+      "#3B6C9E",
+      "#88A9C5",
+      "#CFD8E4",
+      "#F5F2ED",
+      "#E7C8AE",
+      "#CF9566",
+      "#A85D3E",
+      "#6F2C1F"
+    ],
+    "backgroundMode": "light"
+  },
+  {
+    "id": "editorial-diverging-strong-dark",
+    "name": "Editorial Diverging Strong Dark",
+    "description": "Structured blue-to-amber diverging map with a quiet midpoint for centered quantitative comparisons. Adapted for darker surrounding UI and presentation backgrounds.",
+    "paletteClass": "diverging",
+    "chartType": "heatmap",
+    "structure": "diverging-gradient",
+    "size": 9,
+    "tone": "Publication Clean",
+    "academicUsage": "manuscript",
+    "tags": [
+      "high-contrast",
+      "heatmap-safe",
+      "structured-midpoint",
+      "dark"
+    ],
+    "baseHex": "#3B6C9E",
+    "hexes": [
+      "#123B6D",
+      "#3B6C9E",
+      "#88A9C5",
+      "#CFD8E4",
+      "#F5F2ED",
+      "#E7C8AE",
+      "#CF9566",
+      "#A85D3E",
+      "#6F2C1F"
+    ],
+    "backgroundMode": "dark"
+  },
+  {
+    "id": "contrast-concept-scaffold-light",
+    "name": "Contrast Concept Scaffold",
+    "description": "Concept-figure palette with neutral scaffolds, one cool anchor, and one strong highlight for emphasis.",
+    "paletteClass": "concept",
+    "chartType": "concept-figure",
+    "structure": "cool-warm-balanced",
+    "size": 7,
+    "tone": "Presentation Strong",
+    "academicUsage": "online document",
+    "tags": [
+      "high-contrast",
+      "concept-scaffold",
+      "presentation-strong",
+      "light"
+    ],
+    "baseHex": "#1F5A92",
+    "hexes": [
+      "#0F1113",
+      "#3E454B",
+      "#909AA1",
+      "#E8E5DE",
+      "#1F5A92",
+      "#E69F00",
+      "#7B5EA7"
+    ],
+    "backgroundMode": "light"
+  },
+  {
+    "id": "contrast-concept-scaffold-dark",
+    "name": "Contrast Concept Scaffold Dark",
+    "description": "Concept-figure palette with neutral scaffolds, one cool anchor, and one strong highlight for emphasis. Adapted for darker surrounding UI and presentation backgrounds.",
+    "paletteClass": "concept",
+    "chartType": "concept-figure",
+    "structure": "cool-warm-balanced",
+    "size": 7,
+    "tone": "Presentation Strong",
+    "academicUsage": "online document",
+    "tags": [
+      "high-contrast",
+      "concept-scaffold",
+      "presentation-strong",
+      "dark"
+    ],
+    "baseHex": "#1F5A92",
+    "hexes": [
+      "#0F1113",
+      "#3E454B",
+      "#909AA1",
+      "#E8E5DE",
+      "#1F5A92",
+      "#E69F00",
+      "#7B5EA7"
+    ],
+    "backgroundMode": "dark"
+  }
+]

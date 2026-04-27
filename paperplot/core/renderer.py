@@ -11,6 +11,7 @@ from paperplot.core.mpl import prepare_matplotlib_env
 from paperplot.core.save import save_figure
 from paperplot.core.style import build_rcparams
 from paperplot.plots.formatting import apply_axis_formatters
+from paperplot.plots.legends import build_extra_legend_handle
 from paperplot.registry.api import get_plotter
 
 
@@ -25,6 +26,7 @@ def plot(
     visual: str | None = None,
     size: str | None = None,
     output: str | None = None,
+    color_advisor: Mapping[str, Any] | None = None,
     override: Mapping[str, Any] | None = None,
     **kwargs: Any,
 ):
@@ -39,6 +41,7 @@ def plot(
         visual=visual,
         size=size,
         output=output,
+        color_advisor=color_advisor,
         override=override,
         **kwargs,
     )
@@ -55,21 +58,23 @@ def render_template(
     visual: str | None = None,
     size: str | None = None,
     output: str | None = None,
+    color_advisor: Mapping[str, Any] | None = None,
     override: Mapping[str, Any] | None = None,
     **kwargs: Any,
 ):
+    plot_data = load_data(data)
+    resolved_color_advisor = _prepare_color_advisor_policy(color_advisor, plot_data, hue, y)
     spec = resolve_figure_spec(
         template=template,
         profile=profile,
         visual=visual,
         size=size,
+        color_advisor=resolved_color_advisor,
         override=override,
     )
     template_spec = spec["template"]
     prepare_matplotlib_env()
     import matplotlib.pyplot as plt
-
-    plot_data = load_data(data)
 
     with plt.rc_context(build_rcparams(spec)):
         fig, ax = plt.subplots(figsize=spec["figure"]["figsize"])
@@ -96,6 +101,8 @@ def render_template(
 def plot_from_config(config: str | Path | Mapping[str, Any]):
     """Render a figure from a PaperPlot config mapping or YAML file."""
     payload = load_plot_config(config)
+    if isinstance(config, (str, Path)):
+        _resolve_relative_color_advisor_paths(payload, Path(config).resolve().parent)
     paper = payload.get("paper", {})
     figure = payload.get("figure", {})
 
@@ -137,9 +144,49 @@ def plot_from_config(config: str | Path | Mapping[str, Any]):
         visual=paper.get("style"),
         size=figure.get("size"),
         output=figure.get("output"),
+        color_advisor=paper.get("color_advisor"),
         override=figure.get("override"),
         **forwarded,
     )
+
+
+def _resolve_relative_color_advisor_paths(payload: Mapping[str, Any], base_dir: Path) -> None:
+    paper = payload.get("paper")
+    if not isinstance(paper, dict):
+        return
+    advisor = paper.get("color_advisor")
+    if not isinstance(advisor, dict):
+        return
+    persist_path = advisor.get("persist_path")
+    if not persist_path:
+        return
+    path = Path(str(persist_path))
+    if path.is_absolute():
+        return
+    advisor["persist_path"] = str((base_dir / path).resolve())
+
+
+def _prepare_color_advisor_policy(
+    color_advisor: Mapping[str, Any] | None,
+    plot_data: Any,
+    hue_key: str | None,
+    y_key: str | None,
+) -> dict[str, Any] | None:
+    if not isinstance(color_advisor, Mapping):
+        return color_advisor
+    policy = dict(color_advisor)
+    if policy.get("series_count") is not None:
+        return policy
+
+    if hue_key:
+        hue_values = extract_series(plot_data, hue_key)
+        if hue_values:
+            policy["series_count"] = len({str(value) for value in hue_values})
+            return policy
+
+    if y_key:
+        policy["series_count"] = 1
+    return policy
 
 
 def _dispatch_plot(
@@ -233,7 +280,15 @@ def _render_subplots(*, fig: Any, spec: dict[str, Any], template_spec: dict[str,
     if sharex or sharey:
         _simplify_shared_axes(axes, sharex=sharex, sharey=sharey)
     if global_legend:
-        _apply_global_legend(fig, flat_axes[: len(panels)])
+        _apply_global_legend(
+            fig,
+            flat_axes[: len(panels)],
+            loc=options.get("legend", "upper center"),
+            title=options.get("legend_title"),
+            ncol=options.get("legend_ncol"),
+            bbox_to_anchor=options.get("legend_bbox_to_anchor"),
+            extra_legends=options.get("extra_legends"),
+        )
     if figure_title:
         fig.suptitle(figure_title, y=1.02, fontsize=11)
     figure_note = options.get("figure_note", defaults.get("figure_note"))
@@ -274,7 +329,15 @@ def _render_table_mix(*, fig: Any, spec: dict[str, Any], template_spec: dict[str
         if caption:
             axis.text(0.5, -0.22, str(caption), transform=axis.transAxes, ha="center", va="top", fontsize=8)
     if global_legend:
-        _apply_global_legend(fig, axes)
+        _apply_global_legend(
+            fig,
+            axes,
+            loc=options.get("legend", "upper center"),
+            title=options.get("legend_title"),
+            ncol=options.get("legend_ncol"),
+            bbox_to_anchor=options.get("legend_bbox_to_anchor"),
+            extra_legends=options.get("extra_legends"),
+        )
     if figure_title:
         fig.suptitle(figure_title, y=1.02, fontsize=11)
     figure_note = options.get("figure_note", defaults.get("figure_note"))
@@ -328,7 +391,16 @@ def _render_panel(*, axis: Any, fig: Any, spec: dict[str, Any], panel: Mapping[s
     )
 
 
-def _apply_global_legend(fig: Any, axes: list[Any]) -> None:
+def _apply_global_legend(
+    fig: Any,
+    axes: list[Any],
+    *,
+    loc: str = "upper center",
+    title: str | None = None,
+    ncol: int | None = None,
+    bbox_to_anchor: list[float] | tuple[float, float] | None = None,
+    extra_legends: list[dict[str, Any]] | None = None,
+) -> None:
     handles: list[Any] = []
     labels: list[str] = []
     for axis in axes:
@@ -340,8 +412,31 @@ def _apply_global_legend(fig: Any, axes: list[Any]) -> None:
         legend = axis.get_legend()
         if legend is not None:
             legend.remove()
+    if extra_legends:
+        for legend in extra_legends:
+            if not isinstance(legend, dict):
+                continue
+            entries = legend.get("entries")
+            if not isinstance(entries, list):
+                continue
+            for entry in entries:
+                if not isinstance(entry, dict):
+                    continue
+                label = str(entry.get("label", ""))
+                if not label or label in labels:
+                    continue
+                handles.append(build_extra_legend_handle(entry))
+                labels.append(label)
     if handles:
-        fig.legend(handles, labels, loc="upper center", ncol=max(1, min(len(labels), 4)), frameon=False, bbox_to_anchor=(0.5, 1.02))
+        fig.legend(
+            handles,
+            labels,
+            loc=loc,
+            title=title,
+            ncol=ncol or max(1, min(len(labels), 4)),
+            frameon=False,
+            bbox_to_anchor=tuple(bbox_to_anchor) if bbox_to_anchor is not None else (0.5, 1.02),
+        )
 
 
 def _simplify_shared_axes(axes: Any, *, sharex: bool, sharey: bool) -> None:

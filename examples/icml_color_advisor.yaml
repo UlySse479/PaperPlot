@@ -1,0 +1,26 @@
+paper:
+  profile: icml
+  style: academic-muted
+  color_advisor:
+    enabled: true
+    usage: manuscript
+    tone: restrained
+    priorities: [colorblind-safe, grayscale-safe, avoid-red-green]
+    namespace: paper-demo
+    persist_path: examples/color_advisor/paper-colors.json
+    preferred_order: [Ours, Baseline, Ablation]
+    bindings:
+      Ours: primary
+      Baseline: secondary
+
+figure:
+  template: line.sota_compare
+  data:
+    epoch: [1, 2, 3, 1, 2, 3]
+    acc: [74.1, 76.8, 78.3, 71.9, 73.5, 74.8]
+    method: [Ours, Ours, Ours, Baseline, Baseline, Baseline]
+  x: epoch
+  y: acc
+  hue: method
+  title: Advisor-Driven Consistent Colors
+  output: figures/icml_color_advisor.png

@@ -17,6 +17,9 @@ from paperplot import (
     plot_from_config,
     render_gallery,
 )
+from paperplot.core.color_advisor import export_series_color_map
+from paperplot.core.config import load_plot_config, resolve_figure_spec
+from paperplot.core.io import extract_series, load_data
 
 
 def main(argv: Sequence[str] | None = None) -> int:
@@ -55,6 +58,13 @@ def main(argv: Sequence[str] | None = None) -> int:
     validate_assets_parser = subparsers.add_parser("validate-assets", help="Validate asset directories or project roots without rendering.")
     validate_assets_parser.add_argument("target", nargs="?", default=".", help="Asset root or project root. Defaults to the current directory.")
     validate_assets_parser.add_argument("--direct", action="store_true", help="Treat the target as a direct asset directory with profiles/styles/templates subdirectories.")
+
+    advisor_parser = subparsers.add_parser("color-advisor", help="Inspect or export color-advisor recommendations for a config.")
+    advisor_parser.add_argument("config", help="Path to a PaperPlot config file.")
+    advisor_parser.add_argument("--assets", action="append", default=[], help="Optional asset root to load before inspection. Can be passed multiple times.")
+    advisor_parser.add_argument("--project-root", default=".", help="Root used for automatic project asset discovery. Defaults to the current directory.")
+    advisor_parser.add_argument("--label", action="append", default=[], help="Explicit series label to inspect. Can be passed multiple times.")
+    advisor_parser.add_argument("--export-map", help="Optional path to write the resolved series-color mapping JSON.")
 
     list_parser = subparsers.add_parser("list", help="List registered profiles, styles, templates, or plotters.")
     list_parser.add_argument("kind", nargs="?", choices=("profiles", "styles", "templates", "plotters", "all"), default="all", help="Registry kind to list. Defaults to all.")
@@ -123,6 +133,11 @@ def _run(args: argparse.Namespace) -> int:
         _emit(payload, True if args.json_output else True, args.quiet)
         return 0
 
+    if args.command == "color-advisor":
+        payload = _inspect_color_advisor(args.config, args.project_root, args.assets, args.label, args.export_map)
+        _emit(payload, True, args.quiet)
+        return 0
+
     if args.command == "list":
         _emit(_list_payload(args.kind), args.json_output, args.quiet)
         return 0
@@ -137,8 +152,6 @@ def _autoload_for_command(project_root: str, assets: list[str]) -> None:
 
 
 def _validate_configs(target: str, project_root: str, assets: list[str], glob_text: str) -> dict[str, list[str]]:
-    from paperplot.core.config import load_plot_config
-
     _autoload_for_command(project_root, assets)
     targets = _collect_config_targets(Path(target), glob_text)
     if not targets:
@@ -190,8 +203,6 @@ def _looks_like_asset_root(path: Path) -> bool:
 
 
 def _validate_config_payload(payload: dict[str, Any]) -> dict[str, Any]:
-    from paperplot.core.config import resolve_figure_spec
-
     paper = payload.get("paper", {})
     figure = payload.get("figure", {})
     if not isinstance(paper, dict):
@@ -206,13 +217,110 @@ def _validate_config_payload(payload: dict[str, Any]) -> dict[str, Any]:
     if data is None:
         raise ValueError("Figure config must define 'data'.")
 
+    color_advisor = paper.get("color_advisor")
+    if isinstance(color_advisor, dict) and color_advisor.get("series_count") is None:
+        color_advisor = dict(color_advisor)
+        plot_data = load_data(data)
+        hue_key = figure.get("hue")
+        if hue_key is not None:
+            hue_values = extract_series(plot_data, hue_key)
+            if hue_values:
+                color_advisor["series_count"] = len({str(value) for value in hue_values})
+        elif figure.get("y") is not None:
+            color_advisor["series_count"] = 1
+
     return resolve_figure_spec(
         template=template,
         profile=paper.get("profile"),
         visual=paper.get("style"),
         size=figure.get("size"),
+        color_advisor=color_advisor,
         override=figure.get("override"),
     )
+
+
+def _inspect_color_advisor(
+    config_path: str,
+    project_root: str,
+    assets: list[str],
+    labels: list[str],
+    export_path: str | None,
+) -> dict[str, Any]:
+    _autoload_for_command(project_root, assets)
+    config_file = Path(config_path)
+    payload = load_plot_config(config_file)
+    paper = payload.get("paper", {})
+    figure = payload.get("figure", {})
+    if not isinstance(paper, dict):
+        raise TypeError("'paper' section must be a mapping when present.")
+    if not isinstance(figure, dict):
+        raise TypeError("'figure' section must be a mapping.")
+
+    template = figure.get("template")
+    data = figure.get("data")
+    if template is None:
+        raise ValueError("Figure config must define 'template'.")
+    if data is None:
+        raise ValueError("Figure config must define 'data'.")
+
+    advisor = paper.get("color_advisor")
+    if not isinstance(advisor, dict) or not advisor.get("enabled"):
+        raise ValueError("This config does not enable 'paper.color_advisor'.")
+
+    advisor = dict(advisor)
+    if advisor.get("series_count") is None:
+        inferred_labels = labels or _infer_hue_labels(figure, data)
+        if inferred_labels:
+            advisor["series_count"] = len(inferred_labels)
+        elif figure.get("y") is not None:
+            advisor["series_count"] = 1
+    persist_path = advisor.get("persist_path")
+    if persist_path:
+        resolved = Path(str(persist_path))
+        if not resolved.is_absolute():
+            advisor["persist_path"] = str((config_file.resolve().parent / resolved).resolve())
+
+    spec = resolve_figure_spec(
+        template=template,
+        profile=paper.get("profile"),
+        visual=paper.get("style"),
+        size=figure.get("size"),
+        color_advisor=advisor,
+        override=figure.get("override"),
+    )
+    inferred_labels = labels or _infer_hue_labels(figure, data)
+    report = export_series_color_map(spec, inferred_labels)
+    report["config"] = str(config_file)
+    report["template"] = spec["template"]["name"]
+    report["chart_type"] = spec["template"]["chart_type"]
+    report["figure_output"] = _configured_output_from_payload(payload)
+
+    if export_path:
+        output_path = Path(export_path)
+        output_path.parent.mkdir(parents=True, exist_ok=True)
+        output_path.write_text(json.dumps(report, indent=2, ensure_ascii=False), encoding="utf-8")
+        report["exported_map"] = str(output_path)
+
+    return report
+
+
+def _infer_hue_labels(figure: dict[str, Any], data: Any) -> list[str]:
+    hue_key = figure.get("hue")
+    if hue_key is None:
+        return []
+    plot_data = load_data(data)
+    hue_values = extract_series(plot_data, hue_key)
+    if hue_values is None:
+        return []
+    labels: list[str] = []
+    seen: set[str] = set()
+    for value in hue_values:
+        label = str(value)
+        if label in seen:
+            continue
+        labels.append(label)
+        seen.add(label)
+    return labels
 
 
 def _list_payload(kind: str) -> dict[str, list[str]] | list[str]:

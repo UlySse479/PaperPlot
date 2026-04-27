@@ -1,0 +1,11 @@
+{
+  "version": 1,
+  "papers": {
+    "paper-demo": {
+      "series": {
+        "Ours": "#2D5673",
+        "Baseline": "#66859C"
+      }
+    }
+  }
+}

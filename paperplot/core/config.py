@@ -6,6 +6,7 @@ from copy import deepcopy
 from pathlib import Path
 from typing import Any, Mapping
 
+from paperplot.core.color_advisor import apply_color_advisor
 from paperplot.core.merge import apply_dotted_overrides, deep_merge
 from paperplot.core.serde import load_mapping_file
 from paperplot.registry.api import get_profile, get_style, get_template
@@ -41,6 +42,7 @@ def resolve_figure_spec(
     profile: str | None = None,
     visual: str | None = None,
     size: str | None = None,
+    color_advisor: Mapping[str, Any] | None = None,
     override: Mapping[str, Any] | None = None,
 ) -> dict[str, Any]:
     profile_spec = resolve_profile(profile)
@@ -59,7 +61,10 @@ def resolve_figure_spec(
         "size_token": size_token,
         "figsize": tuple(figsize),
     }
-    return apply_dotted_overrides(spec, override)
+    if color_advisor:
+        spec["color_advisor"] = deepcopy(dict(color_advisor))
+    spec = apply_dotted_overrides(spec, override)
+    return apply_color_advisor(spec, template_spec)
 
 
 def load_yaml_config(path: str) -> dict[str, Any]:

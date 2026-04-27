@@ -1,0 +1,19 @@
+{
+  "name": "scientific-color-advisor",
+  "private": true,
+  "version": "0.1.0",
+  "type": "module",
+  "scripts": {
+    "recommend": "node ./skill/scripts/scientific-color-cli.mjs recommend",
+    "export": "node ./skill/scripts/scientific-color-cli.mjs export",
+    "doctor": "node ./skill/scripts/scientific-color-cli.mjs doctor",
+    "generate:examples": "node ./tools/generate-readme-examples.mjs",
+    "sync:vendor": "node ./tools/sync-vendor-from-upstream.mjs",
+    "test": "node ./tests/core.test.mjs && node ./tests/cli.test.mjs",
+    "validate:skill": "node ./tools/validate-skill.mjs",
+    "validate:release": "node ./tools/validate-release.mjs"
+  },
+  "engines": {
+    "node": ">=20"
+  }
+}

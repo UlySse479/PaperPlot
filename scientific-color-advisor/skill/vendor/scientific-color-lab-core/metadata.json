@@ -1,0 +1,11 @@
+{
+  "upstream_repo": "https://github.com/groele/Scientific-Color-Lab",
+  "upstream_commit": "6c3b73b6c0d5504254653096b47c7173eda52670",
+  "synced_at": "2026-04-15T12:02:37.298Z",
+  "source_files": [
+    "src/data/templates/catalog.ts",
+    "src/domain/diagnostics/engine.ts",
+    "src/domain/export/service.ts"
+  ],
+  "template_count": 46
+}

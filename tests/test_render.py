@@ -1,8 +1,10 @@
+import json
 from pathlib import Path
 import subprocess
 import sys
 
 import matplotlib
+from matplotlib.legend import Legend
 
 matplotlib.use("Agg")
 
@@ -38,6 +40,40 @@ def test_plot_line_smoke(tmp_path: Path):
     fig.clf()
 
 
+def test_plot_line_supports_primary_and_extra_legends():
+    data = {
+        "epoch": [1, 2, 3, 1, 2, 3],
+        "acc": [70, 73, 75, 68, 71, 74],
+        "method": ["A", "A", "A", "B", "B", "B"],
+    }
+
+    fig, ax, _ = plot(
+        template="line.sota_compare",
+        data=data,
+        x="epoch",
+        y="acc",
+        hue="method",
+        legend="upper left",
+        legend_bbox_to_anchor=[0.0, 1.02],
+        legend_ncol=2,
+        extra_legends=[
+            {
+                "title": "Metric",
+                "loc": "lower right",
+                "entries": [
+                    {"label": "Main", "color": "#666666", "linestyle": "--"},
+                    {"label": "Ref", "color": "#999999", "linestyle": "-"},
+                ],
+            }
+        ],
+    )
+
+    legends = [artist for artist in ax.get_children() if isinstance(artist, Legend)]
+    assert len(legends) == 2
+    assert ax.get_legend().get_title().get_text() == "Metric"
+    fig.clf()
+
+
 def test_plot_from_config_dict_smoke(tmp_path: Path):
     output = tmp_path / "ablation.pdf"
     config = {
@@ -64,6 +100,209 @@ def test_plot_from_config_dict_smoke(tmp_path: Path):
     assert spec["name"] == "academic-bright"
     assert ax.get_title() == "Ablation on Training Components"
     assert output.exists()
+    fig.clf()
+
+
+def test_color_advisor_persists_series_colors_across_figures(tmp_path: Path):
+    persist_path = tmp_path / "paper-colors.json"
+    config_a = {
+        "paper": {
+            "profile": "icml",
+            "style": "academic-muted",
+            "color_advisor": {
+                "enabled": True,
+                "persist_path": str(persist_path),
+                "namespace": "demo-paper",
+                "preferred_order": ["Ours", "Baseline"],
+            },
+        },
+        "figure": {
+            "template": "line.sota_compare",
+            "data": {
+                "epoch": [1, 2, 1, 2],
+                "acc": [80, 82, 77, 79],
+                "method": ["Baseline", "Baseline", "Ours", "Ours"],
+            },
+            "x": "epoch",
+            "y": "acc",
+            "hue": "method",
+        },
+    }
+    config_b = {
+        "paper": {
+            "profile": "icml",
+            "style": "academic-muted",
+            "color_advisor": {
+                "enabled": True,
+                "persist_path": str(persist_path),
+                "namespace": "demo-paper",
+            },
+        },
+        "figure": {
+            "template": "line.sota_compare",
+            "data": {
+                "epoch": [1, 2, 1, 2],
+                "acc": [77, 79, 80, 82],
+                "method": ["Ours", "Ours", "Baseline", "Baseline"],
+            },
+            "x": "epoch",
+            "y": "acc",
+            "hue": "method",
+        },
+    }
+
+    fig_a, ax_a, _ = plot_from_config(config_a)
+    fig_b, ax_b, _ = plot_from_config(config_b)
+
+    colors_a = {line.get_label(): line.get_color() for line in ax_a.get_lines()}
+    colors_b = {line.get_label(): line.get_color() for line in ax_b.get_lines()}
+
+    assert colors_a["Ours"] == colors_b["Ours"]
+    assert colors_a["Baseline"] == colors_b["Baseline"]
+    assert persist_path.exists()
+    fig_a.clf()
+    fig_b.clf()
+
+
+def test_color_advisor_prefers_separated_two_series_palette():
+    config = {
+        "paper": {
+            "profile": "icml",
+            "style": "academic-muted",
+            "color_advisor": {
+                "enabled": True,
+                "usage": "manuscript",
+                "tone": "restrained",
+            },
+        },
+        "figure": {
+            "template": "line.sota_compare",
+            "data": {
+                "epoch": [1, 2, 1, 2],
+                "acc": [80, 82, 77, 79],
+                "method": ["Baseline", "Baseline", "Ours", "Ours"],
+            },
+            "x": "epoch",
+            "y": "acc",
+            "hue": "method",
+        },
+    }
+
+    fig, ax, spec = plot_from_config(config)
+
+    advisor_id = spec["palette"]["advisor"]["template"]["id"]
+    ours = next(line for line in ax.get_lines() if line.get_label() == "Ours").get_color()
+    baseline = next(line for line in ax.get_lines() if line.get_label() == "Baseline").get_color()
+
+    assert advisor_id == "editorial-lines-light"
+    assert ours != baseline
+    fig.clf()
+
+
+def test_color_advisor_drops_stale_persisted_colors(tmp_path: Path):
+    persist_path = tmp_path / "paper-colors.json"
+    persist_path.write_text(
+        json.dumps(
+            {
+                "version": 1,
+                "papers": {
+                    "paper-demo": {
+                        "series": {
+                            "Ours": "#2F5A78",
+                            "Baseline": "#55738A",
+                        }
+                    }
+                },
+            }
+        ),
+        encoding="utf-8",
+    )
+
+    config = {
+        "paper": {
+            "profile": "icml",
+            "style": "academic-muted",
+            "color_advisor": {
+                "enabled": True,
+                "usage": "manuscript",
+                "tone": "restrained",
+                "namespace": "paper-demo",
+                "persist_path": str(persist_path),
+            },
+        },
+        "figure": {
+            "template": "line.sota_compare",
+            "data": {
+                "epoch": [1, 2, 1, 2],
+                "acc": [80, 82, 77, 79],
+                "method": ["Baseline", "Baseline", "Ours", "Ours"],
+            },
+            "x": "epoch",
+            "y": "acc",
+            "hue": "method",
+        },
+    }
+
+    fig, ax, spec = plot_from_config(config)
+
+    palette = set(spec["palette"]["colors"])
+    colors = {line.get_label(): line.get_color() for line in ax.get_lines()}
+
+    assert spec["palette"]["advisor"]["template"]["id"] == "editorial-lines-light"
+    assert colors["Ours"] in palette
+    assert colors["Baseline"] in palette
+    fig.clf()
+
+
+def test_color_advisor_heatmap_uses_recommended_cmap():
+    config = {
+        "paper": {
+            "profile": "icml",
+            "style": "academic-muted",
+            "color_advisor": {
+                "enabled": True,
+                "usage": "manuscript",
+            },
+        },
+        "figure": {
+            "template": "heatmap.default",
+            "data": {
+                "matrix": [[0.1, 0.4], [0.7, 0.9]],
+                "x_labels": ["A", "B"],
+                "y_labels": ["X", "Y"],
+            },
+        },
+    }
+
+    fig, ax, spec = plot_from_config(config)
+
+    image = ax.images[0]
+    assert spec["palette"]["advisor"]["template"]["chart_type"] == "heatmap"
+    assert image.get_cmap().name == spec["palette"]["advisor"]["template"]["id"]
+    fig.clf()
+
+
+def test_plot_box_supports_hue_legend_controls():
+    data = {
+        "score": [0.81, 0.83, 0.82, 0.84, 0.78, 0.79, 0.80, 0.81],
+        "method": ["A"] * 4 + ["B"] * 4,
+    }
+
+    fig, ax, _ = plot(
+        template="box.default",
+        data=data,
+        y="score",
+        hue="method",
+        legend="upper center",
+        legend_title="Method",
+        legend_bbox_to_anchor=[0.5, 1.05],
+        legend_ncol=2,
+    )
+
+    legend = ax.get_legend()
+    assert legend is not None
+    assert legend.get_title().get_text() == "Method"
+    assert len(legend.texts) == 2
     fig.clf()
 
 
@@ -231,6 +470,61 @@ def test_cli_render_directory_of_configs(tmp_path: Path):
     assert str(output_b) in result.stdout
     assert output_a.exists()
     assert output_b.exists()
+
+
+def test_cli_color_advisor_exports_mapping(tmp_path: Path):
+    export_path = tmp_path / "advisor-map.json"
+    persist_path = tmp_path / "paper-colors.json"
+    config_path = tmp_path / "advisor.yaml"
+    config_path.write_text(
+        "\n".join(
+            [
+                "paper:",
+                "  profile: icml",
+                "  style: academic-muted",
+                "  color_advisor:",
+                "    enabled: true",
+                "    usage: manuscript",
+                "    tone: restrained",
+                "    namespace: paper-a",
+                f"    persist_path: {persist_path}",
+                "    preferred_order: [Ours, Baseline]",
+                "figure:",
+                "  template: line.sota_compare",
+                "  data:",
+                "    epoch: [1, 2, 1, 2]",
+                "    acc: [80, 82, 77, 79]",
+                "    method: [Baseline, Baseline, Ours, Ours]",
+                "  x: epoch",
+                "  y: acc",
+                "  hue: method",
+            ]
+        ),
+        encoding="utf-8",
+    )
+
+    result = subprocess.run(
+        [
+            sys.executable,
+            "-m",
+            "paperplot.cli",
+            "color-advisor",
+            str(config_path),
+            "--export-map",
+            str(export_path),
+        ],
+        cwd="/root/PaperPlot",
+        capture_output=True,
+        text=True,
+        check=True,
+    )
+
+    payload = json.loads(result.stdout)
+    exported = json.loads(export_path.read_text(encoding="utf-8"))
+
+    assert payload["recommendation"]["template"]["chart_type"] == "line-plot"
+    assert payload["series"]["Ours"] != payload["series"]["Baseline"]
+    assert exported["namespace"] == "paper-a"
 
 
 def test_plot_from_yaml_composite_layout(tmp_path: Path):

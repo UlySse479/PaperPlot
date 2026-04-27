@@ -132,6 +132,65 @@ plot_from_config("examples/bar_ablation.yaml")
 
 ---
 
+## 科学配色顾问与整篇论文颜色一致性
+
+PaperPlot 现在可以直接复用仓库内 `scientific-color-advisor` 的推荐逻辑，为不同图类型自动选择更适合论文场景的配色，并把同一语义标签在整篇论文中稳定绑定到同一种颜色。
+
+典型用途：
+
+* 折线图、散点图、分组柱状图自动使用更适合论文的分类色板
+* 热图自动切到更稳妥的 sequential / diverging 色图
+* `Ours`、`Baseline`、`Ablation` 这类标签跨多张图保持颜色不漂移
+* 会根据图里的真实系列数量自动推断 `series_count`，避免两条线论文图被分配到过于接近或过于刺眼的颜色
+
+示例配置：
+
+```yaml
+paper:
+  profile: icml
+  style: academic-muted
+  color_advisor:
+    enabled: true
+    usage: manuscript
+    tone: restrained
+    priorities: [colorblind-safe, grayscale-safe, avoid-red-green]
+    namespace: paper-demo
+    persist_path: color_advisor/paper-colors.json
+    preferred_order: [Ours, Baseline, Ablation]
+    bindings:
+      Ours: primary
+      Baseline: secondary
+
+figure:
+  template: line.sota_compare
+  data:
+    epoch: [1, 2, 3, 1, 2, 3]
+    acc: [74.1, 76.8, 78.3, 71.9, 73.5, 74.8]
+    method: [Ours, Ours, Ours, Baseline, Baseline, Baseline]
+  x: epoch
+  y: acc
+  hue: method
+```
+
+字段含义：
+
+* `enabled`：开启 advisor 驱动的自动推荐
+* `usage` / `tone` / `priorities`：控制推荐目标，默认更偏论文安全而不是演示风格
+* `namespace`：给一篇论文或一个项目单独建立颜色命名空间
+* `persist_path`：把标签到颜色的绑定写入 JSON，分开渲染多张图时也能保持一致
+* `preferred_order`：优先把最重要的方法映射到色板前几个位置
+* `bindings`：显式把某些标签绑定到 `primary`、`secondary` 或 `color-3` 这类角色
+
+仓库内提供了完整示例：[examples/icml_color_advisor.yaml](/root/PaperPlot/examples/icml_color_advisor.yaml)。
+
+进一步说明建议配合阅读：
+
+* [docs/COLOR_ADVISOR_cn.md](./docs/COLOR_ADVISOR_cn.md)
+* [docs/CONFIG_FIELD_GUIDE_cn.md](./docs/CONFIG_FIELD_GUIDE_cn.md)
+* [docs/CLI.md](./docs/CLI.md)
+
+---
+
 ## 外部资源（Assets）
 
 PaperPlot 支持自动加载项目本地的 profile、style 和 template：
@@ -187,6 +246,12 @@ plot(
 * `acl_benchmark_matrix.yaml`
 * `iclr_benchmark_compare.yaml`
 * `cvpr_paper_summary.yaml`
+
+覆盖与重写说明：
+
+* [PaperPlot 图表覆盖与重写指南](./docs/OVERRIDES_cn.md)
+* [PaperPlot 配置字段与调图速查手册](./docs/CONFIG_FIELD_GUIDE_cn.md)
+* [PaperPlot Color Advisor 使用手册](./docs/COLOR_ADVISOR_cn.md)
 
 ---
 
@@ -387,5 +452,6 @@ Matplotlib 渲染器
 
 更多内容：
 
-* `docs/GALLERY.md`：gallery 规范与刷新方式
 * `docs/CLI.md`：CLI 详细说明与 CI 示例
+* `docs/OVERRIDES_cn.md`：override 的合并逻辑与常见改法
+* `docs/COLOR_ADVISOR_cn.md`：科研配色推荐与跨论文颜色一致性
